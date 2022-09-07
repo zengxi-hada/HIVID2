@@ -1,0 +1,19 @@
+关于Uniq2.py的说明
+
+需要对readsID的格式进行清洗和调整的步骤可能报错  找到下面的语句，进行改正即可
+第一就是形成dic的get_seq,在正则表达式加入自己的reads形式去除/1 /2 后续的比对不需要1 2 的信息了，保留了会出错
+cmdt1="gzip -cd "+file1+" |sed -r 's#(\@ERR.*\.[0-9]*|\@chr.*|\@DRR.*)/1$#\\1#g'>"+tmp1
+cmdt2="gzip -cd "+file2+" |sed -r 's#(\@ERR.*\.[0-9]*|\@chr.*|\@DRR.*)/2$#\\1#g'>"+tmp2
+
+第二clean_readID函数，对自己的readsID进行清洗，变成原来的ID格式，跑完hivid之后support的附加格式清洗掉，可能会根据你的readsID形式而有所不同，一般是这个问题#               reads id has like chr_ format
+    #if(read_id.count('chr')>1):
+    #    for i in ref_list:
+    #        if(read_id.count(i)>=1):
+    #            read_id=read_id.replace(i,"",1)
+    #            break;
+
+
+    #               reads id not like chr_ format
+    for i in ref_list:
+        read_id=read_id.replace(i,"")
+

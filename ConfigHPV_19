@@ -1,0 +1,38 @@
+>soap=/public/home/xzeng/bin/BGI_bin/basic_soft/soap/soap2.21
+>ref_virus=/public/home/xzeng/bin/BGI_bin/HPV/norm_hpv/update/save/cervical_carcinoma/unmask_index/hpv_soap_index/hpv.fa.index
+>ref_human=/public/home/xzeng/project/genome_ref/UCSC/hg19_UCSC/soap/hg19.fa.index
+>insert_sd=-30/+30
+>virus_config=
+29;29:-v 1 -r 1
+44;44:-v 2 -r 1
+45;45:-v 2 -r 1
+35;44:-v 2 -r 1
+51;51:-v 2 -r 1
+50;50:-v 2 -r 1
+49;49:-v 2 -r 1
+60;60:-v 2 -r 1
+75;75:-l 40 -v 4 -r 1
+76;76:-l 40 -v 4 -r 1
+73;75:-l 40 -v 4 -r 1
+72;75:-l 40 -v 4 -r 1
+90;90:-l 40 -v 5 -r 1 
+100;100:-l 40 -v 5 -r 1
+142;142:-l 50 -v 5 -r 1
+150;150:-l 50 -v 5 -r 1
+>Human_config=
+29;29:-v 1 -r 1
+44;44:-v 2 -r 1
+45;45:-v 2 -r 1
+35;44:-v 2 -r 1
+51;51:-v 2 -r 1
+50;50:-v 2 -r 1
+49;49:-v 2 -r 1
+60;60:-v 2 -r 1
+75;75:-l 40 -v 4 -r 1
+76;76:-l 40 -v 4 -r 1
+73;75:-l 40 -v 4 -r 1
+72;75:-l 40 -v 4 -r 1
+90;90:-l 40 -v 5 -r 1
+100;100:-l 40 -v 5 -r 1
+142;142:-l 50 -v 5 -r 1
+150;150:-l 50 -v 5 -r 1

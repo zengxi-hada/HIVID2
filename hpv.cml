@@ -1,0 +1,1 @@
+12HPCNWSZ0035/4th_phase_F12HPCNWSZ0035-3/HPV/list -stp 4 -c /ifs1/ST_REHEAL/USER/zengxi/bin/HPV/ConfigHPV_19 -filter -fa1 /ifs1/ST_REHEAL/USER/zengxi/save/cervical_carcinoma/mask_index/human/hg19_hpv_mask_final.fa -fa2 /ifs1/ST_REHEAL/USER/zengxi/save/cervical_carcinoma/mask_index/hpv/hpv_mask.fa

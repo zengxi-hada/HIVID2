@@ -1,0 +1,35 @@
+>soap=/ifs1/ST_REHEAL/USER/zengxi/bin/basic_soft/soap/soap2.21
+>ref_HBV=/ifs1/ST_REHEAL/USER/zengxi/bin/HBV/yishang_data/reference/HBV_8_soap_index/HBV.fa.index
+>ref_human=/ifs1/ST_REHEAL/USER/PUBLIC_database/database/Homo_sapiens/HG19_noRandom/soap_index/human.fa.index
+>insert_sd=-60/+60
+>HBV_config=
+29;29:-v 1 -r 1
+44;44:-v 2 -r 1
+45;45:-v 2 -r 1
+35;44:-v 2 -r 1
+51;51:-v 2 -r 1
+50;50:-v 2 -r 1
+49;49:-v 2 -r 1
+60;60:-v 2 -r 1
+75;75:-l 40 -v 4 -r 1
+76;76:-l 40 -v 4 -r 1
+73;75:-l 40 -v 4 -r 1
+72;75:-l 40 -v 4 -r 1
+90;90:-l 40 -v 5 -r 1 
+100;100:-l 40 -v 5 -r 1
+>Human_config=
+29;29:-v 1 -r 1
+44;44:-v 2 -r 1
+45;45:-v 2 -r 1
+35;44:-v 2 -r 1
+51;51:-v 2 -r 1
+50;50:-v 2 -r 1
+49;49:-v 2 -r 1
+60;60:-v 2 -r 1
+75;75:-l 40 -v 4 -r 1
+76;76:-l 40 -v 4 -r 1
+73;75:-l 40 -v 4 -r 1
+72;75:-l 40 -v 4 -r 1
+90;90:-l 40 -v 5 -r 1
+100;100:-l 40 -v 5 -r 1
+ 
