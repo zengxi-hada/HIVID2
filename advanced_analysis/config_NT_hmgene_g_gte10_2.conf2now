@@ -1,0 +1,137 @@
+<image>
+dir = ./Image
+file = NTCircos_Human.png
+png = yes
+svg = yes
+radius = 3000p
+background = white
+24bit = yes
+angle_offset = -90
+</image>
+
+#anglestep       = 0.5
+#minslicestep    = 10
+#beziersamples   = 40
+#debug           = no
+#warnings        = no
+#imagemap        = no
+
+<colors>
+<<include /public/home/xzeng/bin/BGI_bin/other/circos-0.52/etc/colors.conf>>
+<<include /public/home/xzeng/bin/BGI_bin/other/circos/conf_files/USER.colors.conf>>
+</colors>
+
+<fonts>
+<<include /public/home/xzeng/bin/BGI_bin/other/circos-0.52/etc/fonts.conf>>
+</fonts>
+
+<<include /public/home/xzeng/bin/BGI_bin/circos-0.69/etc/housekeeping.conf>>
+<<include /public/home/xzeng/bin/BGI_bin/other/circos/conf_files/ideogram.conf>>
+<<include /public/home/chshen/auto_Image_Pro/myticks.conf>>
+karyotype = /public/home/xzeng/bin/BGI_bin/other/circos/conf_files/karyotype.human.hg19.txt 
+
+chromosomes_units = 1000000
+chromosomes_display_default = yes
+
+<plots>
+layers_overflow = hide
+
+<plot>
+file = TumorGene.circos
+show = yes
+type = histogram
+r0 = 0.70r
+r1 = 0.99r
+min = -20
+max = 0
+fill_under = yes
+fill_color = dred
+thickness = 10
+extend_bin = no
+
+<rules>
+<rule>
+importance = 100
+condition  = _VALUE_ < 0
+fill_color = dred
+color = dred
+</rule>
+<rule>
+importance = 100
+condition  = _VALUE_ > 0
+fill_color = dred
+color = dred
+</rule>
+</rules>
+<axes>
+thickness=6
+<axis>
+color = lgrey
+spacing = 5
+</axis>
+</axes>
+
+background       = no
+background_stroke_color = lgrey
+background_stroke_thickness = 10
+</plot>
+
+<plot>
+file = NormalGene.circos.p
+show = yes
+type = histogram
+r0 = 1.10r
+r1 = 1.39r
+min = 0
+max = 20
+fill_under = yes
+fill_color = black
+thickness = 10
+extend_bin = no
+
+<rules>
+<rule>
+importance = 100
+condition  = _VALUE_ < 0
+fill_color = black
+color = black
+</rule>
+<rule>
+importance = 100
+condition  = _VALUE_ > 0
+fill_color = black
+color = black
+</rule>
+</rules>
+
+<axes>
+thickness=6
+<axis>
+color = lgrey
+spacing = 5
+</axis>
+</axes>
+
+background       = no
+background_stroke_color = lgrey
+background_stroke_thickness = 10
+</plot>
+
+<rules>
+<rule>
+importance = 100
+condition  = _VALUE_ < 0
+fill_color = blue
+color = blue
+</rule>
+<rule>
+importance = 100
+condition  = _VALUE_ > 0
+fill_color = blue
+color = blue
+</rule>
+</rules>
+</plots>
+
+#units_ok        = bupr
+#units_nounit = n

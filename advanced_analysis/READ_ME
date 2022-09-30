@@ -1,0 +1,1 @@
+ run Analyse.sh <tumor.stp4.dir> <normal.stp4.dir>
