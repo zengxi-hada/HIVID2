@@ -10,7 +10,7 @@ chmod -R 755 bwa; chmod -R 755 samtools; chmod -R 755 msort
 
 ### stage 1: create the sample list
 
-Manually create a file named total.sample.list(total sample list) should be step1/sample.list. Note that the path in the total.sample.list should be absolute full path and the first four columns should preferably be the same. The header line should be start with #. Below is an example of total.sample.list:
+Manually create a file named total.sample.list(total sample list) should be step1/sample.list. Note that the path in the total.sample.list should be absolute full path and the first four columns should preferably be the same. The header line should be start with #. Blank lines are not allowed. Below is an example of total.sample.list:
 
 #Sample  FC  Lane  Libray  read_length library_size  fq1  fq2   
 SRR12345  SRR12345  SRR12345  SRR12345  110;110 170 /absolute_path/5.fq1.gz /absolute_path/5.fq2.gz  
