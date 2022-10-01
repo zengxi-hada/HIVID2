@@ -4,7 +4,7 @@ The users should install the packages used in perl and python programs, such as 
 
 chmod -R 755 bwa; chmod -R 755 samtools; chmod -R 755 msort
 
-# 2. Fast example
+# 2. A fast example
 First, run all_in_one.pl:
 
 #### perl all_in_one.pl -o output_folder -tl total.sample.list -fa1 path_to_human.fa -fa2 path_to_virus.fa -bin path_to_HIVID2_programs -c path_to_soap_config_file
