@@ -62,7 +62,7 @@ virus_config: the parameters of soap2 corresponding to different read length; fo
 The command for creating the configure file is:
 python /absolute_path/creat_config.py -soap /absolute_path/soap2 -virus /absolute_path/ref_virus_index -human /absolute_path/ref_human_index -o /absolute_path/Config_file
 
-*soap2 is at soap folder, in which 2bwt-builder is used to build the soap2 index for the reference genome.*
+## soap2 is at soap folder, in which 2bwt-builder is used to build the soap2 index for the reference genome.
   The commmand for running 2bwt-builder is "2bwt-builder ref.fa"
   
 ## 3.2 Descript of result file and the format
