@@ -16,9 +16,9 @@ Then run sample_id_all_in_one.sh for each sample:
 #### sh sample_id_all_in_one.sh
 
 
-# 2. A Step-to-step protocol of the HIVID2 pipeline 
+# 3. A Step-to-step protocol of the HIVID2 pipeline 
 
-## 2.1 Step to step tutorial
+## 3.1 Step to step tutorial
 
 ### stage 1: create the sample list
 
@@ -65,7 +65,7 @@ python /absolute_path/creat_config.py -soap /absolute_path/soap2 -virus /absolut
 **soap2 is at soap folder, where 2bwt-builder is used to build the index for the reference genome.** 
   The commmand for running 2bwt-builder is "2bwt-builder ref.fa"
   
-## 2.2 Descript of result file and the format
+## 3.2 Descript of result file and the format
 
 The path of the files of final results:
 
@@ -103,7 +103,7 @@ The low confident breakpoints were stored in files named low_confident.*, please
   
 13th column is reads id of discordant reads supporting the breakpoint
 
-## 2.3 The introduction of main.pl
+## 3.3 The introduction of main.pl
 **main.pl is to generate shell scripts for manualy running 4 steps in stage2 of HIVID2**
 
 Parameters
@@ -115,7 +115,7 @@ Parameters
 **-filter**	   whether to filter the repeated comparison reads. Here, only the repeated comparison reads on the human genome are filtered. The repeated comparison reads on the HBV genome are not filtered. However, in the result, the reads of repeated alignments on the HBV genome will be discarded, and the only aligned reads on the corresponding human genome will be retained.  
 **-f**     this parameter is currently useless，please do not use it.
 
-## 2.4 Description of several predefinding files
+## 3.4 Description of several predefinding files
 ### (1) -c   the Configure file
 This configure file difined the referece genomes and alignment parameters used in step3. The users can make their own configure file. But we have involved some configure files which is named as Config* in the same folder of main.pl. Below is the description of the configuration file:  
 soap: the path of the soap2 program  
@@ -124,10 +124,10 @@ ref_human: the path of soap2 index of human reference genome
 insert_sd: the standard deviation of the insert size for the sequencing library  
 virus_config: the parameters of soap2 corresponding to different read length; for example, "150;150:-l 50 -v 5 -r 1" means when the read length is 150 bps, then soap2 will use the parameter "-l 50 -v 5 -r 1"; please note that read length is set at sample.list under the folder step1.
 
-# 3. One demo
+# 4. One demo
 A demo has been uploaded. Users can download the file "demo.rar" and unzip it. We have add an file named "used.cml" in each folder. used.cml contains the command lines used in that folder. Please note that users should replace the absolute path of all the files in each script to run the demo. 
 
-# 4. Advanced analysis
+# 5. Advanced analysis
 
 After obtaining the integration sites, HIVID2 allows the user to decide whether to automatically perform advanced analysis using the identified virus integrations. 
 
@@ -141,7 +141,7 @@ Rscript xxx.R
 
 Note: If you want to get the graph one by one, please separate the script and change parameters. You can also run it line by line, and modify the parameters by yourself. 
 
-# 5. Other tips
+# 6. Other tips
 (1) In order to help the users to track the data processing, HIVID2 retained some intermediate procedure files during running of the pipeline. It may cause big hard disk consuming when dealing with large amount of data such as WGS data. Fortunately, the users can can remove most of intermediate files of previous steps when running step4. When running step4, the user can remove all the files named "*paired.gz" and "*unpaired.gz" in step2, all the files named "*soap.gz" in step2. After completing step4, all the files except the files of final results could be deleted. But before deleting, the users should make sure they don't need them later.
 
 (2) About setting the length in step1/sample.list: the value of read length will not be used in step2 but used in station.sh of step3 for estimating PCR duplication rate. It is OK to set the length based on the raw reads, but it will be better to set the length after running Human_virus_soap.sh in step3 because station.sh of step3 later will directly use this file (Human_*.pair.soap.gz) to estimate the PCR duplication rate of the reads. A simple way is to refer to step3/sample_name/SOAP/Human_*.pair.soap.gz for estimating read length. Length of each read is given in the soap file. You can use a length with the highest frequency as the length to set in sample.list as the length of each read will be not the same. For example, if there are five reads in total and the read length after trimmomatics are: 100, 95, 100, 100, 100, then 100 should be set as the length in sample.list.
@@ -162,5 +162,5 @@ Alternatively, users can set the read length in sample.list after completing ste
 
 (8) For whether to use normalized number of support reads: as the normalization value might not be very precise due to the difficulty of estimation the PCR duplication for raw reads, the user could choose to use absolute number of support reads or normalized number of support reads depending  on the real situation.
 
-# 6. Citation
+# 7. Citation
 Xi Zeng, Linghao Zhao, Chenhang Shen, Yi Zhou, Guoliang Li, Wing-Kin Sung, HIVID2: an accurate tool to detect virus integrations in the host genome, Bioinformatics, Volume 37, Issue 13, 1 July 2021, Pages 1821–1827, https://doi.org/10.1093/bioinformatics/btab031
