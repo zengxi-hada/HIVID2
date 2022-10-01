@@ -4,6 +4,13 @@ The users should install the packages used in perl and python programs, such as 
 
 chmod -R 755 bwa; chmod -R 755 samtools; chmod -R 755 msort
 
+# 2. Fast example
+First, run all_in_one.pl:
+perl all_in_one.pl -o output_folder -tl total.sample.list -fa1 path_to_human.fa -fa2 path_to_virus.fa -bin path_to_HIVID2_programs -c path_to_soap_config_file
+After running all_in_one.pl, you will get sample_id_all_in_one.sh for in the folder of each sample.
+Then run sample_id_all_in_one.sh for each sample: sh sample_id_all_in_one.sh
+
+
 # 2. A Step-to-step protocol of the HIVID2 pipeline 
 
 ## 2.1 Step to step tutorial
@@ -31,11 +38,11 @@ Please note that the reference genomes of both human and virus should be indexed
   
                     -tl             <str>           total sample list
   
-                    -fa1            <str>           the absolute path of indexed human reference when performing bwa-mem [hg19]
+                    -fa1            <str>           the absolute path of indexed human reference when performing bwa-mem [human]
   
                     -fa2            <str>           the absolute path of indexed virus reference when performing bwa-mem [virus]
   
-                    -bin            <str>           the absolute path of HIVID2 program
+                    -bin            <str>           the absolute path of HIVID2 program (optional, default is the path of all_in_one.pl)
   
                     -c              <str>           the absolute path of configure file for running soap
   
