@@ -6,8 +6,11 @@ chmod -R 755 bwa; chmod -R 755 samtools; chmod -R 755 msort
 
 # 2. Fast example
 First, run all_in_one.pl:
+
 perl all_in_one.pl -o output_folder -tl total.sample.list -fa1 path_to_human.fa -fa2 path_to_virus.fa -bin path_to_HIVID2_programs -c path_to_soap_config_file
+
 After running all_in_one.pl, you will get sample_id_all_in_one.sh for in the folder of each sample.
+
 Then run sample_id_all_in_one.sh for each sample: sh sample_id_all_in_one.sh
 
 
