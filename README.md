@@ -35,7 +35,7 @@ perl /absolute_path/all_in_one.pl -o /absolute_path/output_directory -tl /absolu
 **This program all_in_one.pl is to generate a all-in-one shell script for HIVID2 pipeline**. HIVID2 has 4 steps in stage 2, but using all_in_one.pl, The user can run HIVID2 just by one single shell script.After running all_in_one.pl, each sample will generate a folder in output_directory and there is a shell script named "sampleID_all_in_one.sh" for each sample. Just run it using
 "**sh sampleID_all_in_one.sh**". 
 
-Please note that the reference genomes of both human and virus should be indexed by both bwa and soap2 before running sampleID_all_in_one.sh.
+Please note that the reference genomes of both human and virus should be indexed by both bwa and soap2 before running *_all_in_one.sh.
 
 **The parameters of all_in_one.pl**
                    
