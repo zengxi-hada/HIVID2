@@ -36,7 +36,9 @@ perl /absolute_path/all_in_one.pl -o /absolute_path/output_directory -tl /absolu
 "**sh sampleID_all_in_one.sh**". 
 
 Please note that the reference genomes of both human and virus should be indexed by both bwa and soap2 before running *_all_in_one.sh.
+
 bwa index command: bwa index ref.fa
+
 soap2 index command: 2bwt-builder ref.fa
 
 **The parameters of all_in_one.pl**
