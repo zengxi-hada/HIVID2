@@ -56,7 +56,7 @@ soap2 index command: 2bwt-builder ref.fa
                     -c              <str>           the absolute path of configure file for running soap
   
 ### -c   the Configure file
-This configure file difined the indexed referece genomes and alignment parameters used in soap alignment of step3. The users can make their own configure file. But we have involved some configure files which is named as Config* in the same folder of main.pl. There are example file in this Repository. Below is the description of the configuration file:  
+This configure file difined the indexed referece genomes and alignment parameters used in soap alignment of step3. The users can make their own configure file. But we have involved some configure files which is named as Config* in the same folder of main.pl. There are example Config files in this Repository. Below is the description of the configuration file:  
 soap: the path of the soap2 program  
 ref_virus: the path of soap2 index of virus reference genome, which should be formated as xxx.fa.index  
 ref_human: the path of soap2 index of human reference genome, which should be formated as xxx.fa.index
