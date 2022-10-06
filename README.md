@@ -5,13 +5,15 @@ The users should install the packages used in perl and python programs, such as 
 chmod -R 755 bwa; chmod -R 755 samtools; chmod -R 755 msort
 
 # 2. A fast example
+Very simple! 
+
 First, run all_in_one.pl:
 
 #### perl path_to_HIVID2_programs/all_in_one.pl  -o  output_folder  -tl  total.sample.list  -fa1  full_path_to_bwa_indexed_human.fa  -fa2  full_path_to_bwa_indexed_virus.fa  -bin  full_path_to_HIVID2_programs  -c  full_path_to_soap_config_file
 
 After running all_in_one.pl, you will get sample_id_all_in_one.sh for in the folder of each sample.
 
-Then run sampleID_all_in_one.sh for each sample: 
+Then run sampleID_all_in_one.sh for each sample and get the final result: 
 
 #### sh sample_id_all_in_one.sh
 
