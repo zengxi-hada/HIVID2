@@ -22,14 +22,16 @@ Then run sampleID_all_in_one.sh for each sample and get the final result:
 
 ## 3.1 Step to step tutorial
 
-### stage 1: create the sample list
+### stage 1: create the sample list and ref.list
 
-Manually create a file named total.sample.list(total sample list) should be step1/sample.list. Note that the path in the total.sample.list should be absolute full path and the first four columns should preferably be the same. The header line should be start with #. Blank lines are not allowed. Below is an example of total.sample.list:
+(1) Manually create a file named total.sample.list(total sample list) should be step1/sample.list. Note that the path in the total.sample.list should be absolute full path and the first four columns should preferably be the same. The header line should be start with #. Blank lines are not allowed. Below is an example of total.sample.list:
 
 #Sample  FC  Lane  Libray  read_length library_size  fq1  fq2   
 SRR12345  SRR12345  SRR12345  SRR12345  110;110 170 /absolute_path/5.fq1.gz /absolute_path/5.fq2.gz  
 SRR12346  SRR12346  SRR12346  SRR12346  110;110 170 /absolute_path/6.fq1.gz /absolute_path/6.fq2.gz  
 SRR12347  SRR12347  SRR12347  SRR12347  110;110 170 /absolute_path/7.fq1.gz /absolute_path/7.fq2.gz  
+
+(2) It should be noted that there are a file named "ref.list" in the same folder of main.pl. "ref.list" must contain all the ID of reference genomes used in the sequence alignment of step3 and step4 for both virus and human, or the user will get error or uncompleted results in *human_bk.final.stp2.uniq2.final during the procedure of deep removing PCR-duplications in step4. We have involved some predefined reference names in ref.list which should work for HBV and HPV integration detection in human genome, but the users should add the references names used in their own experiments. In the ref.list, each ID should be followed by an underline, for example "chr1_".
 
 ### stage 2: run HIVID2 in one single shell script (one-stop pipeline)
 perl /absolute_path/all_in_one.pl -o /absolute_path/output_directory -tl /absolute_path/total.sample.list -fa1 /absolute_path/human_ref.fa -fa2 /absolute_path/virus_ref.fa -bin /absolute_path/HIVID2 -c /absolute_path/Config_file
@@ -148,22 +150,18 @@ Rscript xxx.R
 Note: If you want to get the graph one by one, please separate the script and change parameters. You can also run it line by line, and modify the parameters by yourself. 
 
 # 6. Other tips
-(1) In order to help the users to track the data processing, HIVID2 retained some intermediate procedure files during running of the pipeline. It may cause big hard disk consuming when dealing with large amount of data such as WGS data. Fortunately, the users can can remove most of intermediate files of previous steps when running step4. When running step4, the user can remove all the files named "*paired.gz" and "*unpaired.gz" in step2, all the files named "*soap.gz" in step2. After completing step4, all the files except the files of final results could be deleted. But before deleting, the users should make sure they don't need them later.
+(2) In order to help the users to track the data processing, HIVID2 retained some intermediate procedure files during running of the pipeline. It may cause big hard disk consuming when dealing with large amount of data such as WGS data. Fortunately, the users can can remove most of intermediate files of previous steps when running step4. When running step4, the user can remove all the files named "*paired.gz" and "*unpaired.gz" in step2, all the files named "*soap.gz" in step2. After completing step4, all the files except the files of final results could be deleted. But before deleting, the users should make sure they don't need them later.
 
-(2) About setting the length in step1/sample.list: the value of read length will not be used in step2 but used in station.sh of step3 for estimating PCR duplication rate. It is OK to set the length based on the raw reads, but it will be better to set the length after running Human_virus_soap.sh in step3 because station.sh of step3 later will directly use this file (Human_*.pair.soap.gz) to estimate the PCR duplication rate of the reads. A simple way is to refer to step3/sample_name/SOAP/Human_*.pair.soap.gz for estimating read length. Length of each read is given in the soap file. You can use a length with the highest frequency as the length to set in sample.list as the length of each read will be not the same. For example, if there are five reads in total and the read length after trimmomatics are: 100, 95, 100, 100, 100, then 100 should be set as the length in sample.list.
+(3) About setting the length in step1/sample.list: the value of read length will not be used in step2 but used in station.sh of step3 for estimating PCR duplication rate. It is OK to set the length based on the raw reads, but it will be better to set the length after running Human_virus_soap.sh in step3 because station.sh of step3 later will directly use this file (Human_*.pair.soap.gz) to estimate the PCR duplication rate of the reads. A simple way is to refer to step3/sample_name/SOAP/Human_*.pair.soap.gz for estimating read length. Length of each read is given in the soap file. You can use a length with the highest frequency as the length to set in sample.list as the length of each read will be not the same. For example, if there are five reads in total and the read length after trimmomatics are: 100, 95, 100, 100, 100, then 100 should be set as the length in sample.list.
     
-
 Alternatively, users can set the read length in sample.list after completing step2 (trimmomatics, quality control). Please note that the length of each read will be not the same after trimmomtics. So You can use a length with highest frequency as the length to set in sample.list. For example, if there are five reads in total and the read length after trimmomatics are: 100, 95, 100, 100, 100, then 100 should be set as the length in sample.list. You can refer to the file "*.trimmo.paired.gz" (fq1 or fq2) in step2 for estimating the reads length. 
  
-(3) There is a file named "tfbsConsSites.txt" in the advanced analysis. This file cannot be uploaded onto github due to the size limitation. But the user could download this file from Table browser of UCSC.
+(4) There is a file named "tfbsConsSites.txt" in the advanced analysis. This file cannot be uploaded onto github due to the size limitation. But the user could download this file from Table browser of UCSC.
 
-(4) HIVID2 works quite well for virus-capture sequencing data. For WGS data, sometimes the used memory might be too large. In this case, the users may need to separate the fastq data into several parts before input into HIVID2 for step1,step2 and step3; then the users can merge the data of step3 for the separated parts to run step4. For WGS data, the users could alternatively first remove human reads or HBV reads before running HIVID2. 
+(5) HIVID2 works quite well for virus-capture sequencing data. For WGS data, sometimes the used memory might be too large. In this case, the users may need to separate the fastq data into several parts before input into HIVID2 for step1,step2 and step3; then the users can merge the data of step3 for the separated parts to run step4. For WGS data, the users could alternatively first remove human reads or HBV reads before running HIVID2. 
 
-(5) The programs of soap2 are also uploaded in this repository. The method of buliding index of soap2 is as following:
-    2bwt-builder xx.fa
+(6) This repository has inlcude the required programs inlcuding bwa,soap2.21, overlap_pair_trim.new and trimmomatic. If the users want to use more updated version of these program, they can overwrite the original the executable program file with new one.
  
-(6) It should be noted that there are a file named "ref.list" in the same folder of main.pl. "ref.list" must contain all the ID of reference genomes used in the sequence alignment of step3 and step4, or the user will get error or uncompleted results in *human_bk.final.stp2.uniq2.final during the procedure of deep removing PCR-duplications in step4. We have involved some predefined reference names in ref.list, but the users should add the references names used in their own experiments. In the ref.list, each ID should be followed by an underline, for example "chr1_".
-
 (7) The workflow of HIVID2 includes four sub-steps, if you want to manually run the 4 steps one by one, please refer to the file named "HIVID2_manunally_run_four_steps.docx".
 
 (8) For whether to use normalized number of support reads: as the normalization value might not be very precise due to the difficulty of estimation the PCR duplication for raw reads, the user could choose to use absolute number of support reads or normalized number of support reads depending  on the real situation.
