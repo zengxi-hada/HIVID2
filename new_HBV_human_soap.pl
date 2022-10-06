@@ -324,7 +324,7 @@ close UNUN2;
 for ($dir_unun,$dir_humanun,$dir_hbvun,$dir_sese,$dir_pepe){
         open SH,">$_/reads_assembly.sh" or die "can't open $_/reads_assembly.sh\n";
 #        print SH "$reads_assembly -a $_/$name_read1 -b $_/$name_read2 -c $_/left_$name_read1 -d $_/left_$name_read2 -o $_/assembly.fa -q $_/assembly_quality -l 1000 -m 5 -e 0.05 -n 0.05\nperl $merge -i $_/assembly.fa -q $_/assembly_quality -o $_/reads_assembly_mergefa_quality_$name_read1\n";
-        print SH "$reads_assembly -a $_/$name_read1 -b $_/$name_read2 -c $_/left_$name_read1 -d $_/left_$name_read2 -o $_/assembly.fa -q $_/assembly_quality -l 1000 -m 5 -e 0.05 -n 0.05\n/public/home/wyyy/anaconda3/envs/bioinfo/bin/perl $merge -i $_/assembly.fa -q $_/assembly_quality -o $_/reads_assembly_mergefa_quality_$name_read1\n";
+        print SH "$reads_assembly -a $_/$name_read1 -b $_/$name_read2 -c $_/left_$name_read1 -d $_/left_$name_read2 -o $_/assembly.fa -q $_/assembly_quality -l 1000 -m 5 -e 0.05 -n 0.05\nperl $merge -i $_/assembly.fa -q $_/assembly_quality -o $_/reads_assembly_mergefa_quality_$name_read1\n";
 ##		print SH "rm -f $_/$name_read1 $_/$name_read2 $_/left_$name_read1 $_/left_$name_read2 $_/assembly.fa $_/assembly_quality\n";
         close SH;
         my $read_assembly_inf=`sh $_/reads_assembly.sh`;
