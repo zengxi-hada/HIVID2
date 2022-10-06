@@ -11,7 +11,7 @@ First, run all_in_one.pl:
 
 After running all_in_one.pl, you will get sample_id_all_in_one.sh for in the folder of each sample.
 
-Then run sample_id_all_in_one.sh for each sample: 
+Then run sampleID_all_in_one.sh for each sample: 
 
 #### sh sample_id_all_in_one.sh
 
