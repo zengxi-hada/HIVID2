@@ -170,3 +170,6 @@ Alternatively, users can set the read length in sample.list after completing ste
 
 # 7. Citation
 Xi Zeng, Linghao Zhao, Chenhang Shen, Yi Zhou, Guoliang Li, Wing-Kin Sung, HIVID2: an accurate tool to detect virus integrations in the host genome, Bioinformatics, Volume 37, Issue 13, 1 July 2021, Pages 1821–1827, https://doi.org/10.1093/bioinformatics/btab031
+
+# 8. Contributors for this repository
+Yuyouye Wang, Xi Zeng
