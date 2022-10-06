@@ -158,10 +158,10 @@ if(!$filter){
             my @fq2 = <$outdir/step3/$sample_name/reads_assemble_pair-end/hbv_un/reads_assembly_mergefa_quality*>;
             my @fq3 = <$outdir/step3/$sample_name/reads_assemble_pair-end/un_un/reads_assembly_mergefa_quality*>;
             my @fq4 = <$outdir/step3/$sample_name/reads_assemble_pair-end/se_se/reads_assembly_mergefa_quality*>;
-			my @fq5 = <$outdir/step3/$sample_name/reads_unassemble_single-end/human_un/*unpaired*>;
-			my @fq6 = <$outdir/step3/$sample_name/reads_unassemble_single-end/hbv_un/*unpaired*>;
-			my @fq7 = <$outdir/step3/$sample_name/reads_unassemble_single-end/un_un/*unpaired*>;
-			my @fq8 = <$outdir/step3/$sample_name/reads_unassemble_single-end/se_se/*unpaired*>;
+	    my @fq5 = <$outdir/step3/$sample_name/reads_unassemble_single-end/human_un/*unpaired*>;
+	    my @fq6 = <$outdir/step3/$sample_name/reads_unassemble_single-end/hbv_un/*unpaired*>;
+	    my @fq7 = <$outdir/step3/$sample_name/reads_unassemble_single-end/un_un/*unpaired*>;
+	    my @fq8 = <$outdir/step3/$sample_name/reads_unassemble_single-end/se_se/*unpaired*>;
             if($qsub){
                 system "perl $search_point -fq1 $fq1[0] -fq2 $fq2[0] -fq3 $fq3[0] -fq4 $fq4[0] -fq5 $fq5[0] -fq6 $fq6[0] -fq7 $fq7[0] -fq8 $fq8[0] -fa1 $fa1 -fa2 $fa2 -o $outdir/step4/$sample_name -qsub -vf $vf4 -filter";
             }else{
