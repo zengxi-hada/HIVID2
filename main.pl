@@ -108,9 +108,9 @@ if(!$filter){
 			my @fq3 = <$outdir/step3/$sample_name/reads_assemble/un_un/reads_assembly_mergefa_quality*>;
 			my @fq4 = <$outdir/step3/$sample_name/reads_assemble/se_se/reads_assembly_mergefa_quality*>;
 			my @fq5 = <$outdir/step3/$sample_name/reads_assemble_single-end/human_un/*unpaired*>;
-            my @fq6 = <$outdir/step3/$sample_name/reads_assemble_single-end/hbv_un/*unpaired*>;
-            my @fq7 = <$outdir/step3/$sample_name/reads_assemble_single-end/un_un/*unpaired*>;
-            my @fq8 = <$outdir/step3/$sample_name/reads_assemble_single-end/se_se/*unpaired*>;
+                        my @fq6 = <$outdir/step3/$sample_name/reads_assemble_single-end/hbv_un/*unpaired*>;
+                        my @fq7 = <$outdir/step3/$sample_name/reads_assemble_single-end/un_un/*unpaired*>;
+                        my @fq8 = <$outdir/step3/$sample_name/reads_assemble_single-end/se_se/*unpaired*>;
 #			print $fq1[0], "\n";
 #
 			if($qsub){
