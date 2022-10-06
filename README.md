@@ -7,7 +7,7 @@ chmod -R 755 bwa; chmod -R 755 samtools; chmod -R 755 msort
 # 2. A fast example
 First, run all_in_one.pl:
 
-#### perl path_to_HIVID2_programs/all_in_one.pl  -o  output_folder  -tl  total.sample.list  -fa1  path_to_bwa_indexed_human.fa  -fa2  path_to_bwa_indexed_virus.fa  -bin  path_to_HIVID2_programs  -c  path_to_soap_config_file
+#### perl path_to_HIVID2_programs/all_in_one.pl  -o  output_folder  -tl  total.sample.list  -fa1  full_path_to_bwa_indexed_human.fa  -fa2  full_path_to_bwa_indexed_virus.fa  -bin  full_path_to_HIVID2_programs  -c  full_path_to_soap_config_file
 
 After running all_in_one.pl, you will get sample_id_all_in_one.sh for in the folder of each sample.
 
@@ -56,10 +56,10 @@ soap2 index command: 2bwt-builder ref.fa
                     -c              <str>           the absolute path of configure file for running soap
   
 ### -c   the Configure file
-This configure file difined the indexed referece genomes and alignment parameters used in soap alignment of step3. The users can make their own configure file. But we have involved some configure files which is named as Config* in the same folder of main.pl. Below is the description of the configuration file:  
+This configure file difined the indexed referece genomes and alignment parameters used in soap alignment of step3. The users can make their own configure file. But we have involved some configure files which is named as Config* in the same folder of main.pl. There are example file in this Repository. Below is the description of the configuration file:  
 soap: the path of the soap2 program  
-ref_virus: the path of soap2 index of virus reference genome  
-ref_human: the path of soap2 index of human reference genome  
+ref_virus: the path of soap2 index of virus reference genome, which should be formated as xxx.fa.index  
+ref_human: the path of soap2 index of human reference genome, which should be formated as xxx.fa.index
 insert_sd: the standard deviation of the insert size for the sequencing library  
 virus_config: the parameters of soap2 corresponding to different read length; for example, "150;150:-l 50 -v 5 -r 1" means when the read length is 150 bps, then soap2 will use the parameter "-l 50 -v 5 -r 1"; please note that read length is set at sample.list under the folder step1.
 
