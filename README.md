@@ -155,7 +155,7 @@ Note: If you want to get the graph one by one, please separate the script and ch
 # 6. Other tips
 (1) We have included the reference genomes of HBV and HPV virus in the folder virus_ref_genomes/. If users are aiming at other viruses, they should other reference genomes for other viruses. of Course, even for HBV and HPV, users can use their own collected reference genomes.
 
-(2) In order to save the room of hard disk, the intermediated files were removed. If users want to retain the intermediated files, they can comment or remove the command line for removing files in run_update_breakpoints.sh in the repository.
+(2) In order to save the space of hard disk, the intermediated files were removed. If users want to retain the intermediated files, they can comment or remove the command line for removing files in run_update_breakpoints.sh in the repository.
 
 (3) About setting the length in step1/sample.list: the value of read length will not be used in step2 but used in station.sh of step3 for estimating PCR duplication rate. It is OK to set the length based on the raw reads, but it will be better to set the length after running Human_virus_soap.sh in step3 because station.sh of step3 later will directly use this file (Human_*.pair.soap.gz) to estimate the PCR duplication rate of the reads. A simple way is to refer to step3/sample_name/SOAP/Human_*.pair.soap.gz for estimating read length. Length of each read is given in the soap file. You can use a length with the highest frequency as the length to set in sample.list as the length of each read will be not the same. For example, if there are five reads in total and the read length after trimmomatics are: 100, 95, 100, 100, 100, then 100 should be set as the length in sample.list.
     
