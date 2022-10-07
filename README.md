@@ -103,11 +103,11 @@ The path of the files of final results:
 
 **The file of final human breakpoint**: 
 ```
-step4/*/human/breakpoint/high_confident.*human_bk.final.stp2.uniq2.final
+step4/*/human/breakpoint/high_confident_*human_bk.final.stp2.uniq2.final
 ```
 **The file of final virus breakpoint**: 
 ```
-step4/*/virus/breakpoint/high_confident.*virus_bk.final.stp2.uniq
+step4/*/virus/breakpoint/high_confident_*virus_bk.final.stp2.uniq
  ```
 The low confident breakpoints were stored in files named low_confident.*, please see our paper in published in Bioinformatics for detail.
 
