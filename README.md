@@ -2,12 +2,22 @@
 HIVID2.2, updated at October 6, 2022.
 
 # 1. Install
- No need to compile. Just .
-The users should install the packages used in perl and python programs, such as PerlIO::gzip, Getopt::Long, File::Basename, etc. Also remember to grant executable permissions to some software, or the pipeline will not be able to run. For example:
-
-***chmod a+x bwa; chmod a+x samtools; chmod a+x msort; chmod a+x overlap_pair_trim.new; chmod a+x soap2.21***
-
-<sub>This is a subscript text</sub>	
+ No need to compile. Just download the newest version with:
+ ```
+ git clobe https://github.com/zengxi-hada/HIVID2.git
+ ```
+ The users should install the packages used in perl and python programs, such as PerlIO::gzip, Getopt::Long, File::Basename, etc. For example using conda:
+```
+conda install -c bioconda perl-perlio-gzip
+```
+HIVID2 required dependency of samtools, which can be downloaded from https://github.com/samtools. Alternatively, samtools could also installed via conda. Remember to add samtools path or cp samtools executable file to your $PATH    
+```
+conda install -c bioconda samtools
+```
+Also remember to grant executable permissions to some software, or the pipeline will not be able to run. For example:
+```
+chmod a+x bwa; chmod a+x msort; chmod a+x overlap_pair_trim.new; chmod a+x soap2.21
+```
 
 # 2. A fast example
 Very simple! 
