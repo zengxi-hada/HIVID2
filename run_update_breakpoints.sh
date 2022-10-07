@@ -30,13 +30,17 @@ python $3/try-fast.v3.py3.py -fq1 $1/step2/$2/$filename1.trimmo.paired1.gz -fq2 
 
 rm -f $1/step2/$2/*fq*paired*
 rm -f $1/step3/$2/SOAP/*soap
-rm -f $1/step3/$2/station_pair_end_new/$2_se_se
-rm -f $1/step3/$2/station_pair_end_new/$2_se_se_new
-rm -f $1/step3/$2/station_pair_end_new/$2_se_se_new_update
-rm -f $1/step3/$2/station_pair_end_new/$2_se_se_new_update_forHBV
 rm -f $1/step3/$2/reads_assemble_pair-end_new/*/*paired
 rm -f $1/step3/$2/reads_assemble_pair-end_new/*/*fa
+rm -f $1/step3/$2/reads_assemble_pair-end_new/*/*assembly_quality
+rm -f $1/step3/$2/reads_assemble_pair-end_new/*/*bak
+rm -f $1/step3/$2/reads_assemble_pair-end/*/*paired
+rm -f $1/step3/$2/reads_assemble_pair-end/*/*fa
+rm -f $1/step3/$2/reads_assemble_pair-end/*/*assembly_quality
+rm -f $1/step3/$2/reads_assemble_pair-end/*/*bak
 rm -f $1/step3/$2/reads_assemble_single-end_new/*/*paired
+rm -f $1/step3/$2/reads_assemble_single-end_new/*/*assembly_quality
+rm -f $1/step3/$2/reads_assemble_single-end_new/*/*bak
 rm -f $1/step4/$2/*/*bam
 rm -f $1/step4/$2/*/*sam
 rm -f $1/step4/$2/fq/*fq.gz
