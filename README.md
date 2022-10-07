@@ -10,7 +10,7 @@ HIVID2.2, updated at October 6, 2022.
 ```
 conda install -c bioconda perl-perlio-gzip
 ```
-HIVID2 required dependency of samtools, which can be downloaded from https://github.com/samtools. Alternatively, samtools could also installed via conda. Remember to add samtools path or cp samtools executable file to your $PATH    
+HIVID2 required dependency of samtools, which can be downloaded from https://github.com/samtools. Alternatively, samtools could also be installed via conda. Remember to add samtools path or cp samtools executable file to your $PATH    
 ```
 conda install -c bioconda samtools
 ```
