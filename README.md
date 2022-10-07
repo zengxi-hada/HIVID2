@@ -1,5 +1,8 @@
+# Version
+HIVID2.2, updated at October 6, 2022.
+
 # 1. Install
-This is newest version of HIVID2. Just download all the files into one folder and run HIVID2 using "perl /absolute_path/all_in_one.pl parameter1 parameter2 parameter3 ......".
+ Just download all the files into one folder and run HIVID2 using "perl /absolute_path/all_in_one.pl parameter1 parameter2 parameter3 ......".
 The users should install the packages used in perl and python programs, such as PerlIO::gzip, Getopt::Long, File::Basename, etc. Also remember to grant executable permissions to some software, or the pipeline will not be able to run. For example:
 
 ***chmod a+x bwa; chmod a+x samtools; chmod a+x msort; chmod a+x overlap_pair_trim.new; chmod a+x soap2.21***
