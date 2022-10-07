@@ -23,14 +23,13 @@ chmod a+x bwa; chmod a+x msort; chmod a+x overlap_pair_trim.new; chmod a+x soap2
 Very simple! 
 
 (1) First, run all_in_one.pl to generate the shell script:
-
-#### perl path_to_HIVID2_programs/all_in_one.pl  -o  output_folder  -tl  total.sample.list  -fa1  full_path_to_bwa_indexed_human.fa  -fa2  full_path_to_bwa_indexed_virus.fa  -bin  full_path_to_HIVID2_programs  -c  full_path_to_soap_config_file
-
-(2) After running all_in_one.pl, you will get sample_id_all_in_one.sh in the folder of each sample.
-
-Then run sampleID_all_in_one.sh for each sample and get the final result: 
-
-#### sh sample_id_all_in_one.sh
+```
+perl path_to_HIVID2_programs/all_in_one.pl  -o  output_folder  -tl  total.sample.list  -fa1  full_path_to_bwa_indexed_human.fa  -fa2  full_path_to_bwa_indexed_virus.fa  -bin  full_path_to_HIVID2_programs  -c  full_path_to_soap_config_file
+```
+(2) After running all_in_one.pl, you will get sample_id_all_in_one.sh in the folder of each sample. Then run sampleID_all_in_one.sh for each sample and get the final result: 
+```
+sh sampleID_all_in_one.sh
+```
 
 
 # 3. A Step-to-step protocol of the HIVID2 pipeline 
@@ -40,26 +39,33 @@ Then run sampleID_all_in_one.sh for each sample and get the final result:
 ### stage 1: create the sample list and ref.list
 
 (1) Manually create a file named total.sample.list(total sample list) should be step1/sample.list. Note that the path in the total.sample.list should be absolute full path and the first four columns should preferably be the same. The header line should be start with #. Blank lines are not allowed. Below is an example of total.sample.list:
-
+```
 #Sample  FC  Lane  Libray  read_length library_size  fq1  fq2   
 SRR12345  SRR12345  SRR12345  SRR12345  110;110 170 /absolute_path/5.fq1.gz /absolute_path/5.fq2.gz  
 SRR12346  SRR12346  SRR12346  SRR12346  110;110 170 /absolute_path/6.fq1.gz /absolute_path/6.fq2.gz  
 SRR12347  SRR12347  SRR12347  SRR12347  110;110 170 /absolute_path/7.fq1.gz /absolute_path/7.fq2.gz  
-
+```
 (2) It should be noted that there are a file named "ref.list" in the same folder of main.pl. "ref.list" must contain all the ID of reference genomes used in the sequence alignment of step3 and step4 for both virus and human, or the user will get error or uncompleted results in *human_bk.final.stp2.uniq2.final during the procedure of deep removing PCR-duplications in step4. We have involved some predefined reference names in ref.list which should work for HBV and HPV integration detection in human genome, but the users should add the references names used in their own experiments. In the ref.list, each ID should be followed by an underline, for example "chr1_".
 
 ### stage 2: run HIVID2 in one single shell script (one-stop pipeline)
+```
 perl /absolute_path/all_in_one.pl -o /absolute_path/output_directory -tl /absolute_path/total.sample.list -fa1 /absolute_path/human_ref.fa -fa2 /absolute_path/virus_ref.fa -bin /absolute_path/HIVID2 -c /absolute_path/Config_file
-
+```
 **This program all_in_one.pl is to generate a all-in-one shell script for HIVID2 pipeline**. HIVID2 has 4 steps in stage 2, but using all_in_one.pl, The user can run HIVID2 just by one single shell script.After running all_in_one.pl, each sample will generate a folder in output_directory and there is a shell script named "sampleID_all_in_one.sh" for each sample. Just run it using
-"**sh sampleID_all_in_one.sh**". 
+```
+sh sampleID_all_in_one.sh 
+```
+Users could also submit the sampleID_all_in_one.sh to slurm, qsge or other task distribution system. 
+###Please note that the reference genomes of both human and virus should be indexed by both bwa and soap2 before running *_all_in_one.sh.
 
-Please note that the reference genomes of both human and virus should be indexed by both bwa and soap2 before running *_all_in_one.sh.
-
-bwa index command: bwa index ref.fa
-
-soap2 index command: 2bwt-builder ref.fa
-
+bwa index command
+```
+bwa index ref.fa
+```
+soap2 index command
+```
+2bwt-builder ref.fa
+```
 **The parameters of all_in_one.pl**
                    
                     -o              <str>           absolute path of output directory
@@ -76,26 +82,33 @@ soap2 index command: 2bwt-builder ref.fa
   
 ### -c   the Soap2 Configure file
 This configure file difined the indexed referece genomes and alignment parameters used in soap alignment of step3. The users can make their own configure file. But we have involved some configure files which is named as Config* in the same folder of main.pl. There are example Config files in this Repository. **Please note that users should provide absolute full path for The Configure file.** Below is the description of the configuration file:  
-**soap: the path of the soap2 program**
-**ref_virus: the path of soap2 index of virus reference genome, which should be formated as xxx.fa.index**  
-**ref_human: the path of soap2 index of human reference genome, which should be formated as xxx.fa.index**
-**insert_sd: the standard deviation of the insert size for the sequencing library**  
-**virus_config: the parameters of soap2 corresponding to different read length; for example, "150;150:-l 50 -v 5 -r 1" means when the read length is 150 bps, then soap2 will use the parameter "-l 50 -v 5 -r 1"; please note that read length is set at sample.list under the folder step1.**
-
+```
+soap: the path of the soap2 program
+ref_virus: the path of soap2 index of virus reference genome, which should be formated as xxx.fa.index
+ref_human: the path of soap2 index of human reference genome, which should be formated as xxx.fa.index
+insert_sd: the standard deviation of the insert size for the sequencing library
+virus_config: the parameters of soap2 corresponding to different read length; for example, "150;150:-l 50 -v 5 -r 1" means when the read length is 150 bps, then soap2 will use the parameter "-l 50 -v 5 -r 1"; please note that read length is set at sample.list under the folder step1
+```
 The command for creating the configure file is:
-python /absolute_path/creat_config.py -soap /absolute_path/soap2 -virus /absolute_path/ref_virus_index -human /absolute_path/ref_human_index -o /absolute_path/Config_file
-
+```python /absolute_path/creat_config.py -soap /absolute_path/soap2 -virus /absolute_path/ref_virus_index -human /absolute_path/ref_human_index -o /absolute_path/Config_file
+```
 ### The executable program of soap2 is at soap folder, in which 2bwt-builder is used to build the soap2 index for the reference genome.
-  The commmand for running 2bwt-builder is "2bwt-builder ref.fa"
-  
+  The commmand for running 2bwt-builder
+  ```
+  2bwt-builder ref.fa
+  ```
 ## 3.2 Descript of result file and the format
 
 The path of the files of final results:
 
-**The file of final human breakpoint**: step4/*/human/breakpoint/high_confident.*human_bk.final.stp2.uniq2.final
-
-**The file of final virus breakpoint**: step4/*/virus/breakpoint/high_confident.*virus_bk.final.stp2.uniq
- 
+**The file of final human breakpoint**: 
+```
+step4/*/human/breakpoint/high_confident.*human_bk.final.stp2.uniq2.final
+```
+**The file of final virus breakpoint**: 
+```
+step4/*/virus/breakpoint/high_confident.*virus_bk.final.stp2.uniq
+ ```
 The low confident breakpoints were stored in files named low_confident.*, please see our paper in published in Bioinformatics for detail.
 
 **Format description of the result file:**
@@ -130,6 +143,7 @@ The low confident breakpoints were stored in files named low_confident.*, please
 **main.pl is to generate shell scripts for manualy running 4 steps in stage2 of HIVID2**
 
 Parameters
+```
   
 **-o**	   output directory path  
 **-l**	   a file containing sample_id, library_id and FC_id  
@@ -137,7 +151,7 @@ Parameters
 **-c**	   parameter configuration file  
 **-filter**	   whether to filter the repeated comparison reads. Here, only the repeated comparison reads on the human genome are filtered. The repeated comparison reads on the HBV genome are not filtered. However, in the result, the reads of repeated alignments on the HBV genome will be discarded, and the only aligned reads on the corresponding human genome will be retained.  
 **-f**     this parameter is currently useless，please do not use it.
-
+```
 ## 3.4 Description of several predefinding files
 ### (1) -c   the Configure file
 This configure file difined the referece genomes and alignment parameters used in step3. The users can make their own configure file. But we have involved some configure files which is named as Config* in the same folder of main.pl. Below is the description of the configuration file:  
