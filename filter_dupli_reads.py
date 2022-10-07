@@ -2,6 +2,8 @@
 #！/usr/bin/python
 from Bio import SeqIO
 import argparse
+import gzip
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-se", type=str)
 parser.add_argument("-R1", type=str)
@@ -9,7 +11,8 @@ parser.add_argument("-R2", type=str)
 parser.add_argument("-out1", type=str)
 parser.add_argument("-out2", type=str)
 args = parser.parse_args()
-disc_read=open(args.se,'r')
+
+disc_read = gzip.open(args.se,'rt')
 #disc_read=open('/public/home/wyyy/HPV/HIVID2.1/step3_update/20C257574/station_pair_end/20C257574_se_se','r')
 disc_readID=[]
 for line in disc_read.readlines():
@@ -19,7 +22,7 @@ disc_readID=set(disc_readID)
 n=0
 allread1=[]
 allread2=[]
-with open(args.R1,'r') as handle:
+with gzip.open(args.R1,'rt') as handle:
 #with open('/public/home/wyyy/HPV/HIVID2.1/step2/20C257574/20C257574_R302_CapNGS.clean_R1.fq.trimmo.paired','r') as handle:
     fq=SeqIO.parse(handle,'fastq')
     for reads in fq:
@@ -28,7 +31,7 @@ with open(args.R1,'r') as handle:
                 allread1.append(reads)
 #SeqIO.write(allread1,'/public/home/wyyy/HPV/HIVID2.1/step3_update/20C257574/20C257574.disc.R1.fastq','fastq')
 SeqIO.write(allread1,args.out1,'fastq')
-with open(args.R2,'r') as handle:
+with gzip.open(args.R2,'rt') as handle:
 #with open('/public/home/wyyy/HPV/HIVID2.1/step2/20C257574/20C257574_R302_CapNGS.clean_R2.fq.trimmo.paired','r') as handle:
     fq=SeqIO.parse(handle,'fastq')
     for reads in fq:

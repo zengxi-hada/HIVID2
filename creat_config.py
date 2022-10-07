@@ -3,8 +3,8 @@
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("-soap", type=str)
-parser.add_argument("-virus", type=str)
-parser.add_argument("-human", type=str)
+parser.add_argument("-virus", type=str)    # *fa.index
+parser.add_argument("-human", type=str)    # *fa.index
 parser.add_argument("-o", type=str)
 args = parser.parse_args()
 output=open(args.o,'a')

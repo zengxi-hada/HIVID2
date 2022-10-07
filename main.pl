@@ -84,7 +84,7 @@ if(!$filter){
 			system "perl $prepare_data -o $outdir -list $list -step $stp -c $config -f $fqnum -qsub -vf $vf2";
 		}else{
 			system "perl $prepare_data -o $outdir -list $list -step $stp -c $config -f $fqnum";
-			print "perl $prepare_data -o $outdir -list $list -step $stp -c $config -f $fqnum\n";
+#			print "perl $prepare_data -o $outdir -list $list -step $stp -c $config -f $fqnum\n";
 		}	
 	}elsif($stp == 3){
 		if($qsub){
@@ -150,7 +150,6 @@ if(!$filter){
 			my @a = split;
 #            chomp $i;
             my $sample_name = $a[0];
-		#	print "2222222222222$sample_name\n";
             my $lib = $a[1];
             my $fc = $a[2];
             mkdir "$outdir/step4/$sample_name" unless -e "$outdir/step4/$sample_name";

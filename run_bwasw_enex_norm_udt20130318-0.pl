@@ -30,6 +30,7 @@ my $bin=dirname (abs_path ($0));
 		-qsub			qsub job automatically or not, default not. it's must be used with "-vf"
 		-vf	<num>		the memory need to be setted when qsub job automatically
 		-filter	<str>		filter the un-unique seq
+                -l	<str>		name of the sample
 
 =head1 author 
   
@@ -64,9 +65,9 @@ GetOptions(
 	'fq3=s' => \$fq3,
 	'fq4=s' => \$fq4,
 	'fq5=s' => \$fq5,
-    'fq6=s' => \$fq6,
-    'fq7=s' => \$fq7,
-    'fq8=s' => \$fq8,
+        'fq6=s' => \$fq6,
+        'fq7=s' => \$fq7,
+        'fq8=s' => \$fq8,
 	'fa1=s' => \$fa1,
 	'fa2=s' => \$fa2,
 	't=i' => \$threshold,
@@ -91,7 +92,7 @@ my $merge_bk_forHBV_sm = "$bin/merge_breakpoint_for_HBV_sm_norm_20130318.pl";
 my $rm_dup = "$bin/rm_duplication.pl";
 my $replacement = "$bin/check_replacement.pl";
 my $hbv_len = "$bin/check_HBV_len.pl";
-my $samtools ="$bin/samtools";
+my $samtools ="samtools";
 my $rm_assemblydup = "$bin/rm_assemblydup.pl";
 my $msort = "$bin/msort";
 my $alu_distance = "$bin/alu_distribution.pl";
@@ -151,7 +152,7 @@ $left_fq3_2 = $left_fq3_1; $left_fq3_2 =~ s/1\.fq/2\.fq/; $left_fq3_2 =~ s/1\.fa
 $left_fq4_1 = "$dir_fq4/left_$base_fq4";
 $left_fq4_2 = $left_fq4_1; $left_fq4_2 =~ s/1\.fq/2\.fq/; $left_fq4_2 =~ s/1\.fastq/2\.fastq/;
 
-open OUT, ">$outdir/bwa_mem_$basename.sh" or die $!;
+open OUT, ">$outdir/bwa_mem_and_call_integration_sites.sh" or die $!;
 
 print OUT "#!/bin/bash
 #PBS -N HIVID_stp4
@@ -179,9 +180,9 @@ print OUT "perl $rm_dup -a1 $outdir/fq/$basename.fq.gz -o $outdir/fq\n";      ##
 
 print OUT "echo \"##  align the treated fq file with BWA-MEM\" >&2\n";
 #print OUT "$bwa index $outdir/fq/index/$basename.fq\n";    ###  modify at 11:09 2011-11-11
-print OUT "$bwa mem $fa1 $outdir/fq/rmdup_$basename.fq.gz > $outdir/human/human_$basename.sam\n";        ### modify at 15:21 2012-02-19
-print OUT "$bwa mem $fa2 $outdir/fq/rmdup_$basename.fq.gz > $outdir/virus/virus_$basename.sam\n";            
-print OUT "$samtools view -h -q 9 -F 4 -F 256 $outdir/human/human_$basename.sam > $outdir/human/human_$basename.uniq_map.sam\n";   ### filter the mutiple mapped reads to reserve the unique mapping reads
+print OUT "$bwa mem $fa1 $outdir/fq/rmdup_$basename.fq.gz > $outdir/human/human_$sample_name.sam\n";        ### modify at 15:21 2012-02-19
+print OUT "$bwa mem $fa2 $outdir/fq/rmdup_$basename.fq.gz > $outdir/virus/virus_$sample_name.sam\n";            
+print OUT "$samtools view -h -q 9 -F 4 -F 256 $outdir/human/human_$sample_name.sam > $outdir/human/human_$sample_name.uniq_map.sam\n";   ### filter the mutiple mapped reads to reserve the unique mapping reads
 
 mkdir "$outdir/human/breakpoint" unless -e "$outdir/human/breakpoint";
 mkdir "$outdir/virus/breakpoint" unless -e "$outdir/virus/breakpoint";
@@ -192,62 +193,58 @@ my @stat = <$preposition_dir/step3/$library_name/*.stat>; 															  ### m
 my @uniq_rate_file_arr = <$preposition_dir/step3/$library_name/SOAP/*.uniq_rate>;
 my $uniq_rate_file = $uniq_rate_file_arr[0]; 
 
-print OUT "perl $select_mutual_reads $outdir/virus/virus_$basename.sam $outdir/human/human_$basename.uniq_map.sam $outdir/virus/breakpoint/$basename\_mutual_sam.virus.endo $outdir/human/breakpoint/$basename\_mutual_sam.human.endo $outdir/virus/breakpoint/$basename\_mutual_sam.virus $outdir/human/breakpoint/$basename\_mutual_sam.human\n";
+print OUT "perl $select_mutual_reads $outdir/virus/virus_$sample_name.sam $outdir/human/human_$sample_name.uniq_map.sam $outdir/virus/breakpoint/$sample_name\_mutual_sam.virus.endo $outdir/human/breakpoint/$sample_name\_mutual_sam.human.endo $outdir/virus/breakpoint/$sample_name\_mutual_sam.virus $outdir/human/breakpoint/$sample_name\_mutual_sam.human\n";
 
 my $fl = "";
 if($filter){$fl = "y"}else{$fl = "n";}
 
-print OUT "perl $search_bk_hbv $outdir/virus/breakpoint/$basename\_mutual_sam.virus $outdir/virus/breakpoint/initialized_bk_$basename.virus $threshold $fl\n";
-print OUT "perl $search_bk_human $outdir/human/breakpoint/$basename\_mutual_sam.human $outdir/human/breakpoint/initialized_bk_$basename.human $threshold $fl\n";
+print OUT "perl $search_bk_hbv $outdir/virus/breakpoint/$sample_name\_mutual_sam.virus $outdir/virus/breakpoint/initialized_bk_$sample_name.virus $threshold $fl\n";
+print OUT "perl $search_bk_human $outdir/human/breakpoint/$sample_name\_mutual_sam.human $outdir/human/breakpoint/initialized_bk_$sample_name.human $threshold $fl\n";
 
 # check reads which may be rearrangement (嵌合/chimera) in human genome, rather than virus integration
-print OUT "perl $check_chimera $outdir/human/human_$basename.sam $outdir/virus/virus_$basename.sam $outdir/human/breakpoint/initialized_bk_$basename.human $outdir/virus/breakpoint/initialized_bk_$basename.virus $outdir/human/breakpoint/use.initialized_bk_$basename.human $outdir/virus/breakpoint/use.initialized_bk_$basename.virus $outdir/human/breakpoint/low_confident.initialized_bk_$basename.human $outdir/virus/breakpoint/low_confident.initialized_bk_$basename.virus\n\n";
+print OUT "perl $check_chimera $outdir/human/human_$sample_name.sam $outdir/virus/virus_$sample_name.sam $outdir/human/breakpoint/initialized_bk_$sample_name.human $outdir/virus/breakpoint/initialized_bk_$sample_name.virus $outdir/human/breakpoint/use.initialized_bk_$sample_name.human $outdir/virus/breakpoint/use.initialized_bk_$sample_name.virus $outdir/human/breakpoint/low_confident.initialized_bk_$sample_name.human $outdir/virus/breakpoint/low_confident.initialized_bk_$sample_name.virus\n\n";
 
 ## process the high confident reads
 print OUT "echo \"## process the high confident reads\" >&2\n";
-print OUT "perl $merge_bk_forHBV $outdir/virus/breakpoint/use.initialized_bk_$basename.virus $stat[0] $outdir/virus/breakpoint/$basename\_virus_bk.final.stp1 $outdir/virus/breakpoint/$library_name.eff.stp y n $uniq_rate_file\n";    ### modify at 2019-07-04
-print OUT "perl $merge_bk_forHuman $outdir/human/breakpoint/use.initialized_bk_$basename.human $stat[0] $outdir/human/breakpoint/$basename\_human_bk.final.stp1 $outdir/human/breakpoint/$library_name.eff.stp y n $uniq_rate_file\n";   ### modify at 2019-07-04
-print OUT "$msort -k 1 -k n2 $outdir/virus/breakpoint/$basename\_virus_bk.final.stp1 > $outdir/virus/breakpoint/$basename\_virus_bk.final.stp1.sort; $msort -k 1 -k n2 $outdir/human/breakpoint/$basename\_human_bk.final.stp1 > $outdir/human/breakpoint/$basename\_human_bk.final.stp1.sort\n";    ### modify at 16:48 2012-04-06
-print OUT "perl $merge_bk_forHBV_sm $outdir/virus/breakpoint/$basename\_virus_bk.final.stp1.sort $stat[0] $outdir/virus/breakpoint/$basename\_virus_bk.final.stp2 $outdir/virus/breakpoint/$library_name.eff.stp y 20\n";   ### modify at 14:00 2013-03-18
-print OUT "perl $merge_bk_forHuman_sm $outdir/human/breakpoint/$basename\_human_bk.final.stp1.sort $stat[0] $outdir/human/breakpoint/$basename\_human_bk.final.stp2 $outdir/human/breakpoint/$library_name.eff.stp y 20\n";    ### modify at 14:16 2012-04-06
-#print OUT "perl $rm_assemblydup $outdir/fq/rmdup_$basename.fq.gz $outdir/virus/breakpoint/$basename\_virus_bk.final.stp2 $outdir/virus/breakpoint/$basename\_virus_bk.final.stp2.uniq\n"; ### modify at 14:01 2013-03-18
-print OUT "perl $rm_pcr_dup $outdir/human/breakpoint/$basename\_human_bk.final.stp2 $outdir/virus/breakpoint/$basename\_virus_bk.final.stp2 $outdir/human/human_$basename.uniq_map.sam $outdir/virus/virus_$basename.sam $outdir/human/breakpoint/$basename\_human_bk.final.stp2.uniq $outdir/virus/breakpoint/high_confident_$basename\_virus_bk.final.stp2.uniq\n";
+print OUT "perl $merge_bk_forHBV $outdir/virus/breakpoint/use.initialized_bk_$sample_name.virus $stat[0] $outdir/virus/breakpoint/$sample_name\_virus_bk.final.stp1 $outdir/virus/breakpoint/$library_name.eff.stp y n $uniq_rate_file\n";    ### modify at 2019-07-04
+print OUT "perl $merge_bk_forHuman $outdir/human/breakpoint/use.initialized_bk_$sample_name.human $stat[0] $outdir/human/breakpoint/$sample_name\_human_bk.final.stp1 $outdir/human/breakpoint/$library_name.eff.stp y n $uniq_rate_file\n";   ### modify at 2019-07-04
+print OUT "$msort -k 1 -k n2 $outdir/virus/breakpoint/$sample_name\_virus_bk.final.stp1 > $outdir/virus/breakpoint/$sample_name\_virus_bk.final.stp1.sort; $msort -k 1 -k n2 $outdir/human/breakpoint/$sample_name\_human_bk.final.stp1 > $outdir/human/breakpoint/$sample_name\_human_bk.final.stp1.sort\n";    ### modify at 16:48 2012-04-06
+print OUT "perl $merge_bk_forHBV_sm $outdir/virus/breakpoint/$sample_name\_virus_bk.final.stp1.sort $stat[0] $outdir/virus/breakpoint/$sample_name\_virus_bk.final.stp2 $outdir/virus/breakpoint/$library_name.eff.stp y 20\n";   ### modify at 14:00 2013-03-18
+print OUT "perl $merge_bk_forHuman_sm $outdir/human/breakpoint/$sample_name\_human_bk.final.stp1.sort $stat[0] $outdir/human/breakpoint/$sample_name\_human_bk.final.stp2 $outdir/human/breakpoint/$library_name.eff.stp y 20\n";    ### modify at 14:16 2012-04-06
+#print OUT "perl $rm_assemblydup $outdir/fq/rmdup_$sample_name.fq.gz $outdir/virus/breakpoint/$sample_name\_virus_bk.final.stp2 $outdir/virus/breakpoint/$sample_name\_virus_bk.final.stp2.uniq\n"; ### modify at 14:01 2013-03-18
+print OUT "perl $rm_pcr_dup $outdir/human/breakpoint/$sample_name\_human_bk.final.stp2 $outdir/virus/breakpoint/$sample_name\_virus_bk.final.stp2 $outdir/human/human_$sample_name.uniq_map.sam $outdir/virus/virus_$sample_name.sam $outdir/human/breakpoint/$sample_name\_human_bk.final.stp2.uniq $outdir/virus/breakpoint/high_confident_$sample_name\_virus_bk.final.stp2.uniq\n";
 ## remove PCR duplicate again
-#print OUT "python $bin/try-fast.py -fq1 /public/home/yzhou/test-uniq/infect-fastq/\$i.1.fq.gz -fq2 /public/home/yzhou/test-uniq/infect-fastq/\$i.2.fq.gz -i $outdir/human/breakpoint/$basename\_human_bk.final.stp2.uniq -o $outdir/human/breakpoint/$basename\_human_bk.final.stp2.uniq2 -id $basename\n";
-(my $basename2 = $basename)=~s/3\./4\./;
-($basename2 = $basename2)=~s/1\./2\./;
-($basename2 = $basename2)=~s/1_/2_/;
-##print $basename." ".$basename2."\n";
-#print $basename2."\n";
-#print OUT "python $bin/Uniq2.py -fq1 $outdir/../../step2/$sample_name/$basename.paired1.gz -fq2 $outdir/../../step2/$sample_name/$basename2.paired1.gz -i $outdir/human/breakpoint/$basename\_human_bk.final.stp2.uniq -o $outdir/human/breakpoint/$basename\_human_bk.final.stp2.uniq2 -id $sample_name -ref $bin/ref.list\n";
+#print OUT "python $bin/try-fast.py -fq1 /public/home/yzhou/test-uniq/infect-fastq/\$i.1.fq.gz -fq2 /public/home/yzhou/test-uniq/infect-fastq/\$i.2.fq.gz -i $outdir/human/breakpoint/$sample_name\_human_bk.final.stp2.uniq -o $outdir/human/breakpoint/$sample_name\_human_bk.final.stp2.uniq2 -id $sample_name\n";
+(my $sample_name2 = $sample_name)=~s/3\./4\./;
+($sample_name2 = $sample_name2)=~s/1\./2\./;
+($sample_name2 = $sample_name2)=~s/1_/2_/;
+##print $sample_name." ".$sample_name2."\n";
+#print $sample_name2."\n";
+#print OUT "python $bin/Uniq2.py -fq1 $outdir/../../step2/$sample_name/$sample_name.paired1.gz -fq2 $outdir/../../step2/$sample_name/$sample_name2.paired1.gz -i $outdir/human/breakpoint/$sample_name\_human_bk.final.stp2.uniq -o $outdir/human/breakpoint/$sample_name\_human_bk.final.stp2.uniq2 -id $sample_name -ref $bin/ref.list\n";
 
 print OUT "gzip -d $outdir/../../step3/$sample_name/station_pair_end/$sample_name\_se_se.gz\n";
 print OUT "perl -lane 'if (\$F[0]=~/1\$/) {print \$_.\"\\t+\\t$len\";} else {print \$_.\"\\t-\\t$len\";}' $outdir/../../step3/$sample_name/station_pair_end/$sample_name\_se_se >$outdir/../../step3/$sample_name/station_pair_end/$sample_name\_se_se_tran\n";
 print OUT "mv -f $outdir/../../step3/$sample_name/station_pair_end/$sample_name\_se_se_tran $outdir/../../step3/$sample_name/station_pair_end/$sample_name\_se_se\n";
 print OUT "gzip -f $outdir/../../step3/$sample_name/station_pair_end/$sample_name\_se_se\n";
-#print OUT "perl $bin/breakpiont_discordant-rd_v1.2.pl -disc_read $outdir/../../step3/$sample_name/station_pair_end/$sample_name\_se_se.gz -bk $outdir/human/breakpoint/$basename\_human_bk.final.stp2.uniq -len $len -ods $outdir/human/breakpoint/human_bk.discordant_read.txt1.2 -obk $outdir/human/breakpoint/$basename\_human_bk.final.stp2.uniq2\n";
-#print OUT "sed -ir 's#nan#0#g' $outdir/human/breakpoint/$basename\_human_bk.final.stp2.uniq2\n";
-#my ($fq1_rm_adapter, $fq2_rm_adapter) = ($base_fq1.1, $base_fq2.1);
-#print OUT "python $rm_pcr_dup_again -fq1 $outdir/../../step2/$sample_name/$fq1_rm_adapter.gz -fq2 $outdir/../../step2/$sample_name/$fq2_rm_adapter.gz -i $outdir/human/breakpoint/$basename\_human_bk.final.stp2.uniq2 -o $outdir/human/breakpoint/high_confident_$basename\_human_bk.final.stp2.uniq2.final -id $sample_name -ref $bin/ref.list\n";
 
 ## process the low confident reads which may be rearrangement rather than virus integration (the result of this part should not be used)
 print OUT "echo \"## process the low confident reads which may be rearrangement rather than virus integration\" >&2\n";
-print OUT "perl $merge_bk_forHBV $outdir/virus/breakpoint/low_confident.initialized_bk_$basename.virus $stat[0] $outdir/virus/breakpoint/low_confident.$basename\_virus_bk.final.stp1 $outdir/virus/breakpoint/low_confident.$library_name.eff.stp y n $uniq_rate_file\n";    ### modify at 2019-07-04
-print OUT "perl $merge_bk_forHuman $outdir/human/breakpoint/low_confident.initialized_bk_$basename.human $stat[0] $outdir/human/breakpoint/low_confident.$basename\_human_bk.final.stp1 $outdir/human/breakpoint/low_confident.$library_name.eff.stp y n $uniq_rate_file\n";   ### modify at 2019-07-04
-print OUT "$msort -k 1 -k n2 $outdir/virus/breakpoint/low_confident.$basename\_virus_bk.final.stp1 > $outdir/virus/breakpoint/low_confident.$basename\_virus_bk.final.stp1.sort; $msort -k 1 -k n2 $outdir/human/breakpoint/low_confident.$basename\_human_bk.final.stp1 > $outdir/human/breakpoint/low_confident.$basename\_human_bk.final.stp1.sort\n";    ### modify at 16:48 2012-04-06
-print OUT "perl $merge_bk_forHBV_sm $outdir/virus/breakpoint/low_confident.$basename\_virus_bk.final.stp1.sort $stat[0] $outdir/virus/breakpoint/low_confident.$basename\_virus_bk.final.stp2 $outdir/virus/breakpoint/low_confident.$library_name.eff.stp y 20\n";   ### modify at 14:00 2013-03-18
-print OUT "perl $merge_bk_forHuman_sm $outdir/human/breakpoint/low_confident.$basename\_human_bk.final.stp1.sort $stat[0] $outdir/human/breakpoint/low_confident.$basename\_human_bk.final.stp2 $outdir/human/breakpoint/low_confident.$library_name.eff.stp y 20\n";    ### modify at 14:16 2012-04-06
-print OUT "perl $rm_pcr_dup $outdir/human/breakpoint/low_confident.$basename\_human_bk.final.stp2 $outdir/virus/breakpoint/low_confident.$basename\_virus_bk.final.stp2 $outdir/human/human_$basename.uniq_map.sam $outdir/virus/virus_$basename.sam $outdir/human/breakpoint/low_confident.$basename\_human_bk.final.stp2.uniq $outdir/virus/breakpoint/low_confident.$basename\_virus_bk.final.stp2.uniq\n\n";
+print OUT "perl $merge_bk_forHBV $outdir/virus/breakpoint/low_confident.initialized_bk_$sample_name.virus $stat[0] $outdir/virus/breakpoint/low_confident.$sample_name\_virus_bk.final.stp1 $outdir/virus/breakpoint/low_confident.$library_name.eff.stp y n $uniq_rate_file\n";    ### modify at 2019-07-04
+print OUT "perl $merge_bk_forHuman $outdir/human/breakpoint/low_confident.initialized_bk_$sample_name.human $stat[0] $outdir/human/breakpoint/low_confident.$sample_name\_human_bk.final.stp1 $outdir/human/breakpoint/low_confident.$library_name.eff.stp y n $uniq_rate_file\n";   ### modify at 2019-07-04
+print OUT "$msort -k 1 -k n2 $outdir/virus/breakpoint/low_confident.$sample_name\_virus_bk.final.stp1 > $outdir/virus/breakpoint/low_confident.$sample_name\_virus_bk.final.stp1.sort; $msort -k 1 -k n2 $outdir/human/breakpoint/low_confident.$sample_name\_human_bk.final.stp1 > $outdir/human/breakpoint/low_confident.$sample_name\_human_bk.final.stp1.sort\n";    ### modify at 16:48 2012-04-06
+print OUT "perl $merge_bk_forHBV_sm $outdir/virus/breakpoint/low_confident.$sample_name\_virus_bk.final.stp1.sort $stat[0] $outdir/virus/breakpoint/low_confident.$sample_name\_virus_bk.final.stp2 $outdir/virus/breakpoint/low_confident.$library_name.eff.stp y 20\n";   ### modify at 14:00 2013-03-18
+print OUT "perl $merge_bk_forHuman_sm $outdir/human/breakpoint/low_confident.$sample_name\_human_bk.final.stp1.sort $stat[0] $outdir/human/breakpoint/low_confident.$sample_name\_human_bk.final.stp2 $outdir/human/breakpoint/low_confident.$library_name.eff.stp y 20\n";    ### modify at 14:16 2012-04-06
+print OUT "perl $rm_pcr_dup $outdir/human/breakpoint/low_confident.$sample_name\_human_bk.final.stp2 $outdir/virus/breakpoint/low_confident.$sample_name\_virus_bk.final.stp2 $outdir/human/human_$sample_name.uniq_map.sam $outdir/virus/virus_$sample_name.sam $outdir/human/breakpoint/low_confident.$sample_name\_human_bk.final.stp2.uniq $outdir/virus/breakpoint/low_confident.$sample_name\_virus_bk.final.stp2.uniq\n\n";
 
-print OUT "$samtools view -b -h -S $outdir/virus/virus_$basename.sam -o $outdir/virus/virus_$basename.bam; $samtools view -b -h -S $outdir/human/human_$basename.uniq_map.sam -o $outdir/human/human_$basename.uniq_map.bam\n";
-print OUT "rm -f $outdir/virus/virus_$basename.sam $outdir/human/human_$basename.sam $outdir/human/human_$basename.uniq_map.sam $outdir/fq/$basename\_human_un.fq $outdir/fq/$basename\_hbv_un.fq $outdir/fq/$basename\_un_un.fq $outdir/fq/$basename\_se_se.fq $outdir/fq/$basename.fq.gz $outdir/fq/sort_$basename.fq\n";
-print OUT "gzip -f $dir_fq1/* $dir_fq2/* $dir_fq3/* $dir_fq4/*\n\n";
+#print OUT "$samtools view -b -h -S $outdir/virus/virus_$sample_name.sam -o $outdir/virus/virus_$sample_name.bam; $samtools view -b -h -S $outdir/human/human_$sample_name.uniq_map.sam -o $outdir/human/human_$sample_name.uniq_map.bam\n";
+#print OUT "rm -f $outdir/virus/virus_$sample_name.sam $outdir/human/human_$sample_name.sam $outdir/human/human_$sample_name.uniq_map.sam $outdir/fq/$sample_name\_human_un.fq $outdir/fq/$sample_name\_hbv_un.fq $outdir/fq/$sample_name\_un_un.fq $outdir/fq/$sample_name\_se_se.fq $outdir/fq/$sample_name.fq.gz $outdir/fq/sort_$sample_name.fq\n";
+#print OUT "gzip -f $dir_fq1/* $dir_fq2/* $dir_fq3/* $dir_fq4/*\n\n";
 
 print OUT "date >&2\n";
-print OUT "echo \"All work has done!\" >&2\n";
+#print OUT "echo \"All work has done!\" >&2\n";
 
 if($qsub){
 	$vf=$vf."g";
-	system "qsub -cwd -l vf=$vf -o $outdir -e $outdir $outdir/bwa_mem_$basename.sh";
+	system "qsub -cwd -l vf=$vf -o $outdir -e $outdir $outdir/bwa_mem_$sample_name.sh";
 }
 close OUT;

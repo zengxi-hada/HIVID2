@@ -70,14 +70,15 @@ if ($step==1){
 			die "Please check step 1\n" if !-e $file;
 		}
 		my $sample_name = $a[0];
-        mkdir "$step2dir/$sample_name";
+       		mkdir "$step2dir/$sample_name";
 		my $base_name1 = basename($a[-2]); my $base_name2 = basename($a[-1]);
-        $base_name1 =~ s/\.gz$//; $base_name2 =~ s/\.gz$//;
+        	$base_name1 =~ s/\.gz$//; $base_name2 =~ s/\.gz$//;
 		open OUTSH,">$step2dir/$sample_name/trimmomatic.sh" or die $!;
 		print OUTSH "#!/bin/bash\n#PBS -N trimmomatic.sh\n#PBS -l nodes=1:ppn=5\n#PBS –l walltime=100:00:00\n#PBS –l mem=10G\n#PBS -q batch\n#PBS -V\ncd \$PBS_O_WORKDIR\n";
-	    print OUTSH "date\n";
+	        print OUTSH "date\n";
 		print OUTSH "java -jar $bin/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 $a[-2] $a[-1] $step2dir/$sample_name/$base_name1.trimmo.paired.gz $step2dir/$sample_name/$base_name1.trimmo.unpaired.gz $step2dir/$sample_name/$base_name2.trimmo.paired.gz $step2dir/$sample_name/$base_name2.trimmo.unpaired.gz ILLUMINACLIP:$bin/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:60\n";
-		print OUTSH "java -jar $bin/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 $a[-2] $a[-1] $step2dir/$sample_name/$base_name1.trimmo.paired1.gz $step2dir/$sample_name/$base_name1.trimmo.unpaired1.gz $step2dir/$sample_name/$base_name2.trimmo.paired1.gz $step2dir/$sample_name/$base_name2.trimmo.unpaired1.gz ILLUMINACLIP:$bin/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:0 TRAILING:0 SLIDINGWINDOW:4:0\n";		print OUTSH "date\n";
+		print OUTSH "java -jar $bin/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 $a[-2] $a[-1] $step2dir/$sample_name/$base_name1.trimmo.paired1.gz $step2dir/$sample_name/$base_name1.trimmo.unpaired1.gz $step2dir/$sample_name/$base_name2.trimmo.paired1.gz $step2dir/$sample_name/$base_name2.trimmo.unpaired1.gz ILLUMINACLIP:$bin/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:0 TRAILING:0 SLIDINGWINDOW:4:0\n";		
+		print OUTSH "date\n";
 ##		chdir $step2dir;
 ##		`qsub $step2dir/trimmomatic.sh`;
 ##		my $trimmomatic_log = `ls $step2dir/trimmomatic.sh.e*`;

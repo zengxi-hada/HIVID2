@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 #！/usr/bin/python
 import argparse
+import gzip
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-se", type=str)
 parser.add_argument("-humansoap", type=str)
@@ -10,11 +12,12 @@ parser.add_argument("-r2", type=str)
 parser.add_argument("-o", type=str)
 args = parser.parse_args()
 i=0
-file=open(args.se,'r')
+file = gzip.open(args.se,'rt')
 output=open(args.o,'a')
 printline=[]
 human_align={}
 virus_align={}
+
 with open(args.humansoap,'r') as strandfile1:
     for reads in strandfile1:
         readsid=reads.split('\t')[0]

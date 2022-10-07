@@ -132,7 +132,6 @@ while(<LIST>){
 		print HUMAN $config{"soap"}," -a $a[-2] -b $a[-1] -D ",$config{"ref_virus"}," -o $virus_soap_pair -2 $virus_soap_single -u $virus_soap_unmap -m $low -x $max -p 8 ", $config{"Human_config"}{$read_len},"\n\n";
 		print HUMAN $config{"soap"}," -a $merge_trimmo_unpaired.gz -D ",$config{"ref_virus"}," -o $virus_soap_se -u $virus_soap_se_unmap -p 8 ",$config{"Human_config"}{$read_len},"\n\n";
 ##		print HUMAN "gzip -f $virus_soap_pair $virus_soap_single $virus_soap_unmap $Human_soap_pair $Human_soap_single $Human_soap_unmap $Human_soap_se $Human_soap_se_unmap $virus_soap_se $virus_soap_se_unmap\n\n";
-		print HUMAN "gzip -f $sample/*soap\n\n";
 		print HUMAN "date\n";
 		close HUMAN;
 
@@ -151,9 +150,9 @@ while(<LIST>){
 			my $un_un="$station_pair_end/$a[0]\_un_un.gz";
 			
 			my $se_se_single_end="$station_single_end/$a[0]\_se_se.gz";
-            my $hbv_un_single_end="$station_single_end/$a[0]\_virus_un.gz";
-            my $human_un_single_end="$station_single_end/$a[0]\_Human_un.gz";
-            my $un_un_single_end="$station_single_end/$a[0]\_un_un.gz";
+	                my $hbv_un_single_end="$station_single_end/$a[0]\_virus_un.gz";
+  	                my $human_un_single_end="$station_single_end/$a[0]\_Human_un.gz";
+                        my $un_un_single_end="$station_single_end/$a[0]\_un_un.gz";
 
 			my $stat="$sam/$a[0].stat";
 			my $out_assemble="$sam/reads_assemble_pair-end";					# paired end reads
@@ -163,9 +162,9 @@ while(<LIST>){
 			print STAT "#!/bin/bash\n#PBS -N station.sh\n#PBS -l nodes=1:ppn=5\n#PBS –l walltime=100:00:00\n#PBS –l mem=10G\n#PBS -q batch\n#PBS -V\ncd \$PBS_O_WORKDIR\n\n";
 			print STAT "date\n";
 #			print STAT "gzip -d $virus_soap_pair $virus_soap_single $virus_soap_unmap $Human_soap_pair $Human_soap_single $Human_soap_unmap\n"; #test fail need
-			($filter)?print STAT "perl $station_pl -reads_assembly $bin/overlap_pair_trim.new -margefa_qua $bin/margefa_qua.pl -hp $Human_soap_pair.gz -hs $Human_soap_single.gz -hu $Human_soap_unmap.gz -bp $virus_soap_pair.gz -bs $virus_soap_single.gz -bu $virus_soap_unmap.gz -pe $pe_pe -se $se_se -sb $hbv_un -sh $human_un -un $un_un  -stat $stat -f1 $a[-2] -f2 $a[-1] -o $out_assemble -filter\n\n" : print STAT "perl $station_pl -reads_assembly $bin/overlap_pair_trim.new -margefa_qua $bin/margefa_qua.pl -hp $Human_soap_pair.gz -hs $Human_soap_single.gz -hu $Human_soap_unmap.gz -bp $virus_soap_pair.gz -bs $virus_soap_single.gz -bu $virus_soap_unmap.gz -pe $pe_pe -se $se_se -sb $hbv_un -sh $human_un -un $un_un  -stat $stat -f1 $a[-2] -f2 $a[-1] -o $out_assemble \n\n";
-			($filter)?print STAT "perl $station_pl_se -hs $Human_soap_se.gz -hu $Human_soap_se_unmap.gz -bs $virus_soap_se.gz -bu $virus_soap_se_unmap.gz -se $se_se_single_end -sb $hbv_un_single_end -sh $human_un_single_end -un $un_un_single_end -stat $stat -f1 $merge_trimmo_unpaired.gz -o $out_assemble_se -filter\n\n":print STAT "perl $station_pl_se -hs $Human_soap_se.gz -hu $Human_soap_se_unmap.gz -bs $virus_soap_se.gz -bu $virus_soap_se_unmap.gz -se $se_se_single_end -sb $hbv_un_single_end -sh $human_un_single_end -un $un_un_single_end -stat $stat -f1 $merge_trimmo_unpaired.gz -o $out_assemble_se \n\n";
-			print STAT "perl $cal_dup_rate $Human_soap_pair.gz $step1_folder/sample.list > $Human_soap_pair.uniq_rate\n";
+			($filter)?print STAT "perl $station_pl -reads_assembly $bin/overlap_pair_trim.new -margefa_qua $bin/margefa_qua.pl -hp $Human_soap_pair -hs $Human_soap_single -hu $Human_soap_unmap -bp $virus_soap_pair -bs $virus_soap_single -bu $virus_soap_unmap -pe $pe_pe -se $se_se -sb $hbv_un -sh $human_un -un $un_un  -stat $stat -f1 $a[-2] -f2 $a[-1] -o $out_assemble -filter\n\n" : print STAT "perl $station_pl -reads_assembly $bin/overlap_pair_trim.new -margefa_qua $bin/margefa_qua.pl -hp $Human_soap_pair -hs $Human_soap_single -hu $Human_soap_unmap -bp $virus_soap_pair -bs $virus_soap_single -bu $virus_soap_unmap -pe $pe_pe -se $se_se -sb $hbv_un -sh $human_un -un $un_un  -stat $stat -f1 $a[-2] -f2 $a[-1] -o $out_assemble \n\n";
+			($filter)?print STAT "perl $station_pl_se -hs $Human_soap_se -hu $Human_soap_se_unmap -bs $virus_soap_se -bu $virus_soap_se_unmap -se $se_se_single_end -sb $hbv_un_single_end -sh $human_un_single_end -un $un_un_single_end -stat $stat -f1 $merge_trimmo_unpaired.gz -o $out_assemble_se -filter\n\n":print STAT "perl $station_pl_se -hs $Human_soap_se -hu $Human_soap_se_unmap -bs $virus_soap_se -bu $virus_soap_se_unmap -se $se_se_single_end -sb $hbv_un_single_end -sh $human_un_single_end -un $un_un_single_end -stat $stat -f1 $merge_trimmo_unpaired.gz -o $out_assemble_se \n\n";
+			print STAT "perl $cal_dup_rate $Human_soap_pair $step1_folder/sample.list > $Human_soap_pair.uniq_rate\n";
 ##			print STAT "perl $station_break -i $se_se -h $human_un -l $a[5] -o $breakpoint\n\n";
 #			print STAT "gzip -f $virus_soap_pair $virus_soap_single $virus_soap_unmap $Human_soap_pair $Human_soap_single $Human_soap_unmap\n";
 			print STAT "date\n";

@@ -17,9 +17,9 @@ my $bin=dirname (abs_path ($0));
   perl all_in_one.pl
  		-o 		<str>		absolute path of output directory
  		-tl		<str>		total sample list
- 		-fa1		<str>		the absolute path of human reference when performing bwa-mem [hg19]
+ 		-fa1		<str>		the absolute path of human reference when performing bwa-mem [human]
  		-fa2		<str>		the absolute path of pathogene reference when performing bwa-mem [virus]
-		-bin		<str>		the absolute path of HIVID2 program
+		-bin		<str>		the absolute path of HIVID2 program (optional, default is the path of all_in_one.pl)
 		-c		<str>		the absolute path of config file for running soap
 
 =head1 author
@@ -61,18 +61,18 @@ while(<TL>){
 	close LT;
 
 	open OS, ">$outdir/$sample_id/$sample_id\_all_in_one.sh" or die $!;
-	print OS "echo \"## step 2\" >&2\n";
+	print OS "\necho \"\n## step 2\" >&2\n";
 	print OS "perl $bin_dir/main.pl -o $outdir/$sample_id -l $outdir/$sample_id/list  -c $config -stp 2\n";
 	print OS "sh $outdir/$sample_id/step2/$sample_id/trimmomatic.sh\n";
 
-	print OS "echo \"## step 3\" >&2\n";
+	print OS "\necho \"\n## step 3\" >&2\n";
 	print OS "perl $bin_dir/main.pl -o $outdir/$sample_id -l $outdir/$sample_id/list  -c $config -stp 3\n";
 	print OS "sh $outdir/$sample_id/step3/$sample_id/Human_virus_soap.sh\n";
 	print OS "sh $outdir/$sample_id/step3/$sample_id/station.sh\n";
 
-	print OS "echo \"## step 4\" >&2\n";
+	print OS "\necho \"\n## step 4\" >&2\n";
 	print OS "perl $bin_dir/main.pl -o $outdir/$sample_id -l $outdir/$sample_id/list  -c $config -stp 4 -filter -fa1 $fa1 -fa2 $fa2\n";
-	print OS "sh $outdir/$sample_id/step4/$sample_id/bwa_mem*.sh\n";
+	print OS "sh $outdir/$sample_id/step4/$sample_id/bwa_mem_and_call_integration_sites.sh\n";
         print OS "sh $bin_dir/run_update_breakpoints.sh $outdir/$sample_id $sample_id $bin_dir $fa1 $fa2";
 	close OS;
 }

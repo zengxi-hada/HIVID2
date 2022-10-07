@@ -26,9 +26,12 @@ close SL;
 my ($sample_id) = $soap_file=~/step3\/(\w+)\/SOAP/;
 
 my %h;
-#open SF, $soap_file or die $!;
-open SF,"gzip -cd $soap_file|" or die "can't open $soap_file\n";
-#open SF, $soap_file or die "can't open $soap_file\n";
+if($soap_file=~/.gz$/){
+	open SF,"gzip -cd $soap_file|" or die "can't open $soap_file\n";
+}else{
+	open SF,"$soap_file" or die "can't open $soap_file\n";
+}
+
 while(<SF>){
 	chomp;
 	my @a = split /\s+/, $_;			# the first line
