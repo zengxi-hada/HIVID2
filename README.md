@@ -145,12 +145,12 @@ The low confident breakpoints were stored in files named low_confident.*, please
 Parameters
 ```
   
-**-o**	   output directory path  
-**-l**	   a file containing sample_id, library_id and FC_id  
-**-stp**   step number (1/2/3/4)  
-**-c**	   parameter configuration file  
-**-filter**	   whether to filter the repeated comparison reads. Here, only the repeated comparison reads on the human genome are filtered. The repeated comparison reads on the HBV genome are not filtered. However, in the result, the reads of repeated alignments on the HBV genome will be discarded, and the only aligned reads on the corresponding human genome will be retained.  
-**-f**     this parameter is currently useless，please do not use it.
+-o	   output directory path  
+-l	   a file containing sample_id, library_id and FC_id  
+-stp  step number (1/2/3/4)  
+-c	   parameter configuration file  
+-filter	   whether to filter the repeated comparison reads. Here, only the repeated comparison reads on the human genome are filtered. The repeated comparison reads on the HBV genome are not filtered. However, in the result, the reads of repeated alignments on the HBV genome will be discarded, and the only aligned reads on the corresponding human genome will be retained.  
+-f     this parameter is currently useless，please do not use it.
 ```
 ## 3.4 Description of several predefinding files
 ### (1) -c   the Configure file
