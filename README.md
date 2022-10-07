@@ -2,7 +2,7 @@
 HIVID2.2, updated at October 6, 2022.
 
 # 1. Install
- No need to compile. Just download the newest version with:
+ No need to compile. Just download the newest version and use directly.
  ```
  git clobe https://github.com/zengxi-hada/HIVID2.git
  ```
