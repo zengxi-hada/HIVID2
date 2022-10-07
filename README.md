@@ -4,7 +4,7 @@ HIVID2.2, updated at October 6, 2022.
 # 1. Install
  No need to compile. Just download the newest version and use it directly.
  ```
- git clobe https://github.com/zengxi-hada/HIVID2.git
+ git clone https://github.com/zengxi-hada/HIVID2.git
  ```
  The users should install the packages used in perl and python programs, such as PerlIO::gzip, Getopt::Long, File::Basename, etc. For example using conda:
 ```
