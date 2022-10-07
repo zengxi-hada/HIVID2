@@ -162,7 +162,7 @@ insert_sd: the standard deviation of the insert size for the sequencing library
 virus_config: the parameters of soap2 corresponding to different read length; for example, "150;150:-l 50 -v 5 -r 1" means when the read length is 150 bps, then soap2 will use the parameter "-l 50 -v 5 -r 1"; please note that read length is set at sample.list under the folder step1.
 
 # 4. One demo
-A demo has been uploaded. Users can download the file "demo.rar" and unzip it. We have add an file named "used.cml" in each folder. used.cml contains the command lines used in that folder. Please note that users should replace the absolute path of all the files in each script to run the demo. 
+A demo has been uploaded in the repository. Users can download the file "demo.rar" and unzip it. We have add an file named "used.cml" in the folder. used.cml contains the command lines used in that folder. Please note that users should replace the absolute path of all the files by the own path in the total.sample.list and command lines and so on to run the demo. 
 
 # 5. Advanced analysis
 
