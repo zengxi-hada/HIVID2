@@ -89,7 +89,7 @@ ref_human: the path of soap2 index of human reference genome, which should be fo
 insert_sd: the standard deviation of the insert size for the sequencing library
 virus_config: the parameters of soap2 corresponding to different read length; for example, "150;150:-l 50 -v 5 -r 1" means when the read length is 150 bps, then soap2 will use the parameter "-l 50 -v 5 -r 1"; please note that read length is set at sample.list under the folder step1
 ```
-Users could make the configure file manually. The configure file could also be created by the command line:
+Users could make the configure file manually. Alternatively, the configure file could also be created by the command line:
 ```
 python /absolute_path/creat_config.py -soap /absolute_path/soap2 -virus /absolute_path/ref_virus_index -human /absolute_path/ref_human_index -o /absolute_path/Config_file
 ```
