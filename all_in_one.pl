@@ -16,7 +16,7 @@ my $bin=dirname (abs_path ($0));
 
   perl all_in_one.pl
  		-o 		<str>		absolute path of output directory
- 		-tl		<str>		total sample list
+ 		-ts		<str>		total sample list
  		-fa1		<str>		the absolute path of human reference when performing bwa-mem [human]
  		-fa2		<str>		the absolute path of pathogene reference when performing bwa-mem [virus]
 		-bin		<str>		the absolute path of HIVID2 program (optional, default is the path of all_in_one.pl)
@@ -35,7 +35,7 @@ my ($outdir, $bin_dir, $total_list, $config, $fa1, $fa2);
 GetOptions(
     'o=s' => \$outdir,
 	'bin=s' => \$bin_dir,
-    'tl=s' => \$total_list,
+    'ts=s' => \$total_list,
     'c=s' => \$config,
     'fa1=s' => \$fa1,
     'fa2=s' => \$fa2,
