@@ -1,5 +1,5 @@
 # Version
-HIVID2.2, updated at NOV. 6, 2022.
+HIVID2.2, updated at N 6, 2022.
 
 # 1. Install
  No need to compile. Just download the newest version and use it directly.
