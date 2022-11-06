@@ -22,12 +22,23 @@ my $bin=dirname (abs_path ($0));
 		-bin		<str>		the absolute path of HIVID2 program (optional, default is the path of all_in_one.pl)
 		-c		<str>		the absolute path of config file for running soap
 
-=head1 author
+=head1 authors
 
-  zengxi@mail.hzau.edu.cn
+  Zeng,Xi: zengxi@mail.hzau.edu.cn, zengxi@childrens.harvard.edu
+  Yi,Shang: yishang@genomics.org.cn
+  Chen,Shengpei: chenshengpei@genomics.org.cn
+  Shen,chenhang: 15071254117@sina.cn
+  Zhou,Yi: yzhou.zoe@qq.com
+  Wang, Yuyouye:
 
 =head1 version
-v1.0: 2021-10-08
+
+  version1.0: 2011-11-10
+  version1.1: 2012-02-15
+  version1.2: 2013-03-18
+  version2.0: 2019-06-20
+  version2.1: 2020-11-22
+  version2.2: 2022-11-02
 
 =cut
 
@@ -61,7 +72,7 @@ while(<TL>){
 	close LT;
 
 	open OS, ">$outdir/$sample_id/$sample_id\_all_in_one.sh" or die $!;
-	print OS "\necho \"\n## step 2\" >&2\n";
+	print OS "echo \"\n## step 2\" >&2\n";
 	print OS "perl $bin_dir/main.pl -o $outdir/$sample_id -l $outdir/$sample_id/list  -c $config -stp 2\n";
 	print OS "sh $outdir/$sample_id/step2/$sample_id/trimmomatic.sh\n";
 

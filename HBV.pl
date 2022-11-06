@@ -6,10 +6,9 @@ use Cwd 'abs_path';
 my $bin=dirname (abs_path ($0));
 
 ############################################################################################################
-##	This program is to generate the folders and shell scripts for running step2	and step3				####
-##  Author: Yi Shang 																					####
-##			Zeng Xi																						####
-##	Last update: 2020-12																				####
+##	This program is to generate the folders and shell scripts for running step2 and step3	        ####
+##      Author: Shang Yi, Xi Zeng									####
+##	Last update: 2020-12										####
 ############################################################################################################
 
 my $usage="perl $0 -o <out dir> -step <2 | 3> -list <FC Insertsize list> -c <config file> -f <the number of fqdata you want to find [10-37]> -filter <whether filter nounique align to human> -qsub -vf <RAM> -help\n";

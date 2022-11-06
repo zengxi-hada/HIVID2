@@ -1,10 +1,10 @@
 #!usr/bin/perl -w
 
 #############################################################################################################
-###  This program is to generate the folders and shell scripts for running step3              			 ####
-###  Author: Yi Shang                                                                                    ####
-###          Zeng Xi                                                                                     ####
-###  Last update: 2020-12                                                                                ####
+###  This program is to generate the folders and shell scripts for running step3              	         ####
+###  Author: Shang Yi                                                                                    ####
+###          Xi Zeng                                                                                     ####
+###  Last update: 2022-10                                                                                ####
 #############################################################################################################
 
 use strict;
@@ -121,7 +121,7 @@ while(<LIST>){
 		print HUMAN "cat $a[-4].gz $a[-3].gz > $merge_trimmo_unpaired.gz;\n\n";
 		print HUMAN $config{"soap"}," -a $a[-2] -b $a[-1] -D ",$config{"ref_human"}," -o $Human_soap_pair -2 $Human_soap_single -u $Human_soap_unmap -m $low -x $max -p 8 ",$config{"virus_config"}{$read_len},"\n\n";
 #		print $config{"soap"}," -a $a[-2] -b $a[-1] -D ",$config{"ref_human"}," -o $Human_soap_pair -2 $Human_soap_single -u $Human_soap_unmap -m $low -x $max -p 8 ",$config{"virus_config"}{$read_len},"\n\n";
-		print HUMAN $config{"soap"}," -a $merge_trimmo_unpaired.gz -D ",$config{"ref_human"}," -o $Human_soap_se -u $Human_soap_se_unmap -p 8 ", $config{"virus_config"}{$read_len},"\n";
+		print HUMAN $config{"soap"}," -a $merge_trimmo_unpaired.gz -D ",$config{"ref_human"}," -o $Human_soap_se -u $Human_soap_se_unmap -p 8 ", $config{"virus_config"}{$read_len},"\n\n";
 #		close HUMAN;
 #		open VIRUS,">$sam/virus_soap.sh" or die $!;
 #		print VIRUS "if [!-f $merge_trimmo_unpaired.gz];then\n";

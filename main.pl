@@ -29,14 +29,15 @@ my $bin=dirname (abs_path ($0));
 			-fa2	<str>		the absolute path of  pathogene reference when performing bwa-mem [virus]
 			-filter	<str>		choose uniq alignment reads or not in soap
 
-=head1 author
+=head1 authors
   
-  zengxi@mail.hzau.edu.cn	
-  zengxi@genomics.org.cn
-  yishang@genomics.org.cn
-  chenshengpei@genomics.org.cn
-  15071254117@sina.cn (shenchenhang)
-  yzhou.zoe@qq.com (zhouyi)
+  Zeng,Xi: zengxi@mail.hzau.edu.cn, zengxi@childrens.harvard.edu
+  Yi,Shang: yishang@genomics.org.cn
+  Chen,Shengpei: chenshengpei@genomics.org.cn
+  Shen,chenhang: 15071254117@sina.cn
+  Zhou,Yi: yzhou.zoe@qq.com
+  Wang, Yuyouye:
+  
 
 =head1 version
 
@@ -45,6 +46,7 @@ my $bin=dirname (abs_path ($0));
   version1.2: 2013-03-18
   version2.0: 2019-06-20
   version2.1: 2020-11-22
+  version2.2: 2022-11-02
 =cut
 
 my ($outdir, $list, $stp, $qsub, $vf2, $vf3, $vf4, $filter);
