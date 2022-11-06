@@ -1,5 +1,5 @@
 # Version
-HIVID2.2, updated at October 6, 2022.
+HIVID2.2, updated at N 6, 2022.
 
 # 1. Install
  No need to compile. Just download the newest version and use it directly.
@@ -208,3 +208,7 @@ Xi Zeng, Linghao Zhao, Chenhang Shen, Yi Zhou, Guoliang Li, Wing-Kin Sung, HIVID
 
 # 8. Contributors for this repository
 Yuyouye Wang, Xi Zeng
+
+# 9. Contact for help
+Yuyouye Wang: yxwang@webmail.hzau.edu.cn
+Xi Zeng: zengxi@mail.hzau.edu.cn, Xi.Zeng@childrens.harvard.edu
