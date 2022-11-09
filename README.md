@@ -6,9 +6,11 @@ HIVID2.2: updated at November 6, 2022.
  ```
  git clone https://github.com/zengxi-hada/HIVID2.git
  ```
- The users should install the packages used in perl and python programs, such as PerlIO::gzip, Getopt::Long, File::Basename, etc. For example using conda:
+ The users should install the packages used in perl and python programs, such as PerlIO::gzip, Getopt::Long, File::Basename, etc. Use conda or Cpan to install, for example using conda:
 ```
 conda install -c bioconda perl-perlio-gzip
+conda install -c bioconda perl-getopt-long
+
 ```
 HIVID2 required dependency of samtools, which can be downloaded from https://github.com/samtools. Alternatively, samtools could also be installed via conda.     
 ```
