@@ -5,7 +5,15 @@ use warnings;
 
 ################################################################################################################################################################################
 #### This program is the first round of PCR duplication removement for the supporting reads of breakpoints																########
-#### Author: Zeng, Xi																																					########
+#### Author: zeng xi																																					########
+#### last Update: 2020-12																																				########
+################################################################################################################################################################################################################################################################################################################################################################
+#### This program is the first round of PCR duplication removement for the supporting reads of breakpoints																########
+#### Author: zeng xi																																					########
+#### last Update: 2020-12																																				########
+################################################################################################################################################################################################################################################################################################################################################################
+#### This program is the first round of PCR duplication removement for the supporting reads of breakpoints																########
+#### Author: zeng xi																																					########
 #### last Update: 2020-12																																				########
 ################################################################################################################################################################################
 
@@ -213,7 +221,16 @@ while(<VBK>){
     $lp = ($l_reads eq "0") ? 0 : (join ",", @l_print);
     $rp = ($r_reads eq "0") ? 0 : (join ",", @r_print);
     next if $sum_support==0;
-    print OVBK "$chr\t$pos\t$left_support\t$right_support\t$sum_support\t$norm_left\t$norm_right\t$norm_sum\t$lp\t$rp\n";
+    if ($rp eq ""){
+        print OVBK "$chr\t$pos\t$left_support\t$right_support\t$sum_support\t$norm_left\t$norm_right\t$norm_sum\t$lp\t0\n";
+        #print "$chr\t$pos\t$left_support\t$right_support\t$sum_support\t$norm_left\t$norm_right\t$norm_sum\t$lp\t0\n";
+    }elsif($lp eq ""){
+        #print "$chr\t$pos\t$left_support\t$right_support\t$sum_support\t$norm_left\t$norm_right\t$norm_sum\t0\t$rp\n";
+        print OVBK "$chr\t$pos\t$left_support\t$right_support\t$sum_support\t$norm_left\t$norm_right\t$norm_sum\t0\t$rp\n";
+    }else{
+        #print "$chr\t$pos\t$left_support\t$right_support\t$sum_support\t$norm_left\t$norm_right\t$norm_sum\t$lp\t$rp\n";
+        print OVBK "$chr\t$pos\t$left_support\t$right_support\t$sum_support\t$norm_left\t$norm_right\t$norm_sum\t$lp\t$rp\n";
+    }
 
 #    print OVBK "$chr\t$pos\t$l_count_rmdup\t$r_count_rmdup\t$total_count\t$new_lnorm\t$new_rnorm\t$new_total_norm\t$l_uniq_read_array_id_str\t$r_uniq_read_array_id_str\n";
 }
