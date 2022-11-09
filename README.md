@@ -16,7 +16,7 @@ conda install -c bioconda samtools
 ```
 Remember to add samtools path or cp samtools executable file to your $PATH. For example, in $HOME/.bashrc, add:
 ```
-export PATH="$PATH:/path_to_samtools"
+export PATH="$PATH:/path_to_samtools/"
 ```
 
 Also remember to grant executable permissions to some software, or the pipeline will not be able to run. For example:
