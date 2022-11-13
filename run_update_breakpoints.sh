@@ -1,3 +1,6 @@
+## Author
+#Wang,Yuyouye
+
 filename=`sed -n "2,2p" $1/step1/sample.list`
 #filename1=`echo $filename | awk '{print $7}'`;filename1=${filename1##*/};filename1=${filename1%.*}
 #filename2=`echo $filename | awk '{print $8}'`;filename2=${filename2##*/};filename2=${filename2%.*}
