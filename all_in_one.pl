@@ -24,12 +24,12 @@ my $bin=dirname (abs_path ($0));
 
 =head1 authors
 
-  Zeng,Xi: zengxi@mail.hzau.edu.cn, zengxi@childrens.harvard.edu
+  Zeng,Xi: zengxi@mail.hzau.edu.cn, Xi.Zeng@childrens.harvard.edu
   Yi,Shang: yishang@genomics.org.cn
   Chen,Shengpei: chenshengpei@genomics.org.cn
   Shen,chenhang: 15071254117@sina.cn
   Zhou,Yi: yzhou.zoe@qq.com
-  Wang, Yuyouye:
+  Wang,Yuyouye:
 
 =head1 version
 
