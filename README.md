@@ -35,7 +35,11 @@ perl full_path_to_HIVID2_programs/all_in_one.pl  -o  full_path_to_output_folder 
 ```
 (2) After running all_in_one.pl, you will get sampleID_all_in_one.sh in the folder of each sample. Then run sampleID_all_in_one.sh for each sample and get the final result: 
 ```
-sh sampleID_all_in_one.sh
+sh sample1/sample1_all_in_one.sh
+sh sample2/sample2_all_in_one.sh
+...
+
+Alternatively, the users can also submit these shell scripts for each sample to computing cluster via SGE or SLURM system using qsub or sbatch command.
 ```
 
 
