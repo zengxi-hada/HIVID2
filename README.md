@@ -58,7 +58,7 @@ SRR12347  SRR12347  SRR12347  SRR12347  110;110 170 /absolute_path/7.fq1.gz /abs
 ```
 (2) It should be noted that there are a file named "ref.list" in the same folder of main.pl. "ref.list" must contain all the ID of reference genomes used in the sequence alignment of step3 and step4 for both virus and human, or the user will get error or uncompleted results in *human_bk.final.stp2.uniq2.final during the procedure of deep removing PCR-duplications in step4. We have involved some predefined reference names in ref.list which should work for HBV and HPV integration detection in human genome, but the users should add the references names used in their own experiments. In the ref.list, each ID should be followed by an underline, for example "chr1_".
 
-(3) ### edit the Soap2 Configure file
+(3) edit the Soap2 Configure file
 This configure file difined the indexed referece genomes and alignment parameters used in soap alignment of step3. The users can make their own configure file. 
 
 We have involved some example configure files which is named as Config* in the same folder of pipeline, but the user should edit it with their own file path. 
