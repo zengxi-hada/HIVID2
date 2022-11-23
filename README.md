@@ -47,7 +47,7 @@ Alternatively, the users can also submit these shell scripts for each sample to 
 
 ## 3.1 Step to step tutorial
 
-### stage 1: create the sample list and ref.list
+### stage 1: create the sample list and ref.list, and edit the Soap2 Configure file
 
 (1) Manually create a file named total.sample.list(total sample list) should be step1/sample.list. Note that the path in the total.sample.list should be absolute full path and the first four columns should preferably be the same. The header line should be start with #. Blank lines are not allowed. Below is an example of total.sample.list:
 ```
@@ -57,6 +57,28 @@ SRR12346  SRR12346  SRR12346  SRR12346  110;110 170 /absolute_path/6.fq1.gz /abs
 SRR12347  SRR12347  SRR12347  SRR12347  110;110 170 /absolute_path/7.fq1.gz /absolute_path/7.fq2.gz  
 ```
 (2) It should be noted that there are a file named "ref.list" in the same folder of main.pl. "ref.list" must contain all the ID of reference genomes used in the sequence alignment of step3 and step4 for both virus and human, or the user will get error or uncompleted results in *human_bk.final.stp2.uniq2.final during the procedure of deep removing PCR-duplications in step4. We have involved some predefined reference names in ref.list which should work for HBV and HPV integration detection in human genome, but the users should add the references names used in their own experiments. In the ref.list, each ID should be followed by an underline, for example "chr1_".
+
+(3) ### edit the Soap2 Configure file
+This configure file difined the indexed referece genomes and alignment parameters used in soap alignment of step3. The users can make their own configure file. 
+
+We have involved some example configure files which is named as Config* in the same folder of pipeline, but the user should edit it with their own file path. 
+**Please note that users should provide absolute full path for The Configure file.** Below is the description of the configuration file:  
+```
+soap: the path of the soap2 program
+ref_virus: the path of soap2 index of virus reference genome, which should be formated as xxx.fa.index
+ref_human: the path of soap2 index of human reference genome, which should be formated as xxx.fa.index
+insert_sd: the standard deviation of the insert size for the sequencing library
+virus_config: the parameters of soap2 corresponding to different read length; for example, "150;150:-l 50 -v 5 -r 1" means when the read length is 150 bps, then soap2 will use the parameter "-l 50 -v 5 -r 1"; please note that read length is set at sample.list under the folder step1. The users can add parameters by themselves, but it's not required. 
+```
+Users could make the configure file manually. Alternatively, the configure file could also be created by the command line:
+```
+python /absolute_path/creat_config.py -soap /absolute_path/soap2 -virus /absolute_path/ref_virus_index -human /absolute_path/ref_human_index -o /absolute_path/Config_file
+```
+### The executable program of soap2 is at soap folder, in which 2bwt-builder is used to build the soap2 index for the reference genome.
+  The commmand for running 2bwt-builder
+  ```
+  2bwt-builder ref.fa
+  ```
 
 ### stage 2: run HIVID2 in one single shell script (one-stop pipeline)
 ```
@@ -91,24 +113,7 @@ soap2 index command
   
                     -c              <str>           the absolute path of configure file for running soap
   
-### -c   the Soap2 Configure file
-This configure file difined the indexed referece genomes and alignment parameters used in soap alignment of step3. The users can make their own configure file. But we have involved some configure files which is named as Config* in the same folder of main.pl. There are example Config files in this Repository. **Please note that users should provide absolute full path for The Configure file.** Below is the description of the configuration file:  
-```
-soap: the path of the soap2 program
-ref_virus: the path of soap2 index of virus reference genome, which should be formated as xxx.fa.index
-ref_human: the path of soap2 index of human reference genome, which should be formated as xxx.fa.index
-insert_sd: the standard deviation of the insert size for the sequencing library
-virus_config: the parameters of soap2 corresponding to different read length; for example, "150;150:-l 50 -v 5 -r 1" means when the read length is 150 bps, then soap2 will use the parameter "-l 50 -v 5 -r 1"; please note that read length is set at sample.list under the folder step1
-```
-Users could make the configure file manually. Alternatively, the configure file could also be created by the command line:
-```
-python /absolute_path/creat_config.py -soap /absolute_path/soap2 -virus /absolute_path/ref_virus_index -human /absolute_path/ref_human_index -o /absolute_path/Config_file
-```
-### The executable program of soap2 is at soap folder, in which 2bwt-builder is used to build the soap2 index for the reference genome.
-  The commmand for running 2bwt-builder
-  ```
-  2bwt-builder ref.fa
-  ```
+
 ## 3.2 Descript of result file and the format
 
 The path of the files of final results:
