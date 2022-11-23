@@ -65,10 +65,10 @@ This configure file difined the indexed referece genomes and alignment parameter
 We have involved some example configure files which is named as Config* in the same folder of pipeline, but the user should edit it with their own file path. 
 **Please note that users should provide absolute full path for The Configure file.** Below is the description of the configuration file:  
 ```
-soap: the path of the soap2 program
-ref_virus: the path of soap2 index of virus reference genome, which should be formated as xxx.fa.index
-ref_human: the path of soap2 index of human reference genome, which should be formated as xxx.fa.index
-insert_sd: the standard deviation of the insert size for the sequencing library
+soap: the path of the soap2 program, should be formated as soap=/path_to_file/soap2.21
+ref_virus: the path of soap2 index of virus reference genome, which should be formated as ref_virus=/path_to_file/xxx.fa.index
+ref_human: the path of soap2 index of human reference genome, which should be formated as ref_human=/path_to_file/xxx.fa.index
+insert_sd: the standard deviation of the insert size for the sequencing library, which should be formated as insert_sd=...
 virus_config: the parameters of soap2 corresponding to different read length; for example, "150;150:-l 50 -v 5 -r 1" means when the read length is 150 bps, then soap2 will use the parameter "-l 50 -v 5 -r 1"; please note that read length is set at sample.list under the folder step1. The users can add parameters by themselves, but it's not required. 
 ```
 Users could make the configure file manually. Alternatively, the configure file could also be created by the command line:
