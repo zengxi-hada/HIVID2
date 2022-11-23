@@ -170,14 +170,6 @@ Parameters
 -filter	   whether to filter the repeated comparison reads. Here, only the repeated comparison reads on the human genome are filtered. The repeated comparison reads on the HBV genome are not filtered. However, in the result, the reads of repeated alignments on the HBV genome will be discarded, and the only aligned reads on the corresponding human genome will be retained.  
 -f     this parameter is currently useless，please do not use it.
 ```
-## 3.4 Description of several predefinding files
-### (1) -c   the Configure file
-This configure file difined the referece genomes and alignment parameters used in step3. The users can make their own configure file. But we have involved some configure files which is named as Config* in the same folder of main.pl. Below is the description of the configuration file:  
-soap: the path of the soap2 program  
-ref_virus: the path of soap2 index of virus reference genome  
-ref_human: the path of soap2 index of human reference genome  
-insert_sd: the standard deviation of the insert size for the sequencing library  
-virus_config: the parameters of soap2 corresponding to different read length; for example, "150;150:-l 50 -v 5 -r 1" means when the read length is 150 bps, then soap2 will use the parameter "-l 50 -v 5 -r 1"; please note that read length is set at sample.list under the folder step1.
 
 # 4. One demo
 A demo has been uploaded in the repository. Users can download the file "demo.rar" and unzip it. We have add an file named "used.cml" in the folder. used.cml contains the command lines used in that folder. Please note that users should replace the absolute path of all the files by the own path in the total.sample.list and command lines and so on to run the demo. 
