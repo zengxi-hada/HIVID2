@@ -10,8 +10,9 @@ HIVID2.2: updated at November 6, 2022.
 ```
 conda install -c bioconda perl-perlio-gzip
 conda install -c bioconda perl-getopt-long
-
+conda install -c conda-forge biopython
 ```
+
 HIVID2 required dependency of samtools, which can be downloaded from https://github.com/samtools. Alternatively, samtools could also be installed via conda.     
 ```
 conda install -c bioconda samtools
