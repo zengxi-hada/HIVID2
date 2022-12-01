@@ -21,7 +21,7 @@ Remember to add samtools path or cp samtools executable file to your $PATH. For 
 export PATH="$PATH:/path_to_samtools/"
 ```
 
-Also remember to grant executable permissions to some software, or the pipeline will not be able to run. For example:
+Also remember to grant executable permissions to some software, or the pipeline will not be able to run. In HIVID2 foler, run:
 ```
 chmod a+x bwa; chmod a+x msort; chmod a+x overlap_pair_trim.new; chmod a+x soap/soap2.21
 ```
