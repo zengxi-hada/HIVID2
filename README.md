@@ -106,9 +106,9 @@ soap2 index command
   
                     -tl             <str>           total sample list
   
-                    -fa1            <str>           the absolute path of indexed human reference when performing bwa-mem [human]
+                    -fa1            <str>           the absolute path of bwa indexed human reference when performing bwa-mem [human]
   
-                    -fa2            <str>           the absolute path of indexed virus reference when performing bwa-mem [virus]
+                    -fa2            <str>           the absolute path of bwa indexed virus reference when performing bwa-mem [virus]
   
                     -bin            <str>           the absolute path of HIVID2 program (optional, default is the path of all_in_one.pl)
   
