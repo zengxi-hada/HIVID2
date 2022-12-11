@@ -50,4 +50,4 @@ rm -f $1/step4/$2/fq/*fq.gz
 rm -f $1/step4/$2/fq/*fastq.gz
 rm -f $1/step4/$2/fq/*fq
 
-echo \"All work has done!\" >&2\n
+echo \"All work has done!\" >&2
