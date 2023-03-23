@@ -200,7 +200,7 @@ Alternatively, users can set the read length in sample.list after completing ste
  
 (4) There is a file named "tfbsConsSites.txt" in the advanced analysis. This file cannot be uploaded onto github due to the size limitation. But the user could download this file from Table browser of UCSC.
 
-(5) HIVID2 works quite well for virus-capture sequencing data. For WGS data, sometimes the used memory might be too large. In this case, the users may need to separate the fastq data into several parts before input into HIVID2 for step1,step2 and step3; then the users can merge the data of step3 for the separated parts to run step4. For WGS data, the users could alternatively first remove human reads or HBV reads before running HIVID2. 
+(5) HIVID2 works quite well for virus-capture sequencing data. For WGS data, sometimes the used memory might be too large. In this case, the users may need to separate the fastq data into several parts before input into HIVID2 for step1,step2 and step3; then the users can merge the data of step3 for the separated parts to run step4. For WGS data, the users could also first remove paired reads that can fully map to human or HBV genome before running HIVID2 to reduce the memory. 
 
 (6) This repository has inlcude the required programs inlcuding bwa,soap2.21, overlap_pair_trim.new and trimmomatic. If the users want to use more updated version of these program, they can overwrite the original the executable program file with new one.
  
