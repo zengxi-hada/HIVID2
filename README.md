@@ -28,7 +28,6 @@ chmod a+x bwa; chmod a+x msort; chmod a+x overlap_pair_trim.new; chmod a+x soap/
 ```
 
 # 2. A fast example
-Very simple! 
 
 (1) First, run all_in_one.pl to generate the shell script:
 ```
