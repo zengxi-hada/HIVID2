@@ -47,7 +47,7 @@ Alternatively, the users can also submit these shell scripts for each sample to 
 
 ## 3.1 Step to step tutorial
 
-### stage 1: create the sample list and ref.list, and edit the Soap2 Configure file
+### stage 1: create the sample list and ref.list, and edit the Soap2 Configure file which will be used in "step2"
 
 (1) Manually create a file named total.sample.list(total sample list) should be step1/sample.list. Note that the path in the total.sample.list should be absolute full path and the first four columns should preferably be the same. The header line should be start with #. Blank lines are not allowed. Below is an example of total.sample.list:
 ```
@@ -106,9 +106,9 @@ soap2 index command
   
                     -tl             <str>           total sample list
   
-                    -fa1            <str>           the absolute path of bwa indexed human reference when performing bwa-mem [human]
+                    -fa1            <str>           the absolute path of bwa indexed human reference when performing bwa-mem [human] (this fasta will be used in "step4")
   
-                    -fa2            <str>           the absolute path of bwa indexed virus reference when performing bwa-mem [virus]
+                    -fa2            <str>           the absolute path of bwa indexed virus reference when performing bwa-mem [virus] (this fasta will be used in "step4")
   
                     -bin            <str>           the absolute path of HIVID2 program (optional, default is the path of all_in_one.pl)
   
