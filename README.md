@@ -47,7 +47,7 @@ Alternatively, the users can also submit these shell scripts for each sample to 
 
 ## 3.1 Step to step tutorial
 
-### stage 1: create the sample list and ref.list, and edit the Soap2 Configure file which will be used in "step2"
+### stage 1: prepare the files including the sample list and ref.list, and the Soap2 Configure file which will be used in "stage2"
 
 (1) Manually create a file named total.sample.list(total sample list) should be step1/sample.list. Note that the path in the total.sample.list should be absolute full path and the first four columns should preferably be the same. The header line should be start with #. Blank lines are not allowed. Below is an example of total.sample.list:
 ```
@@ -57,6 +57,13 @@ SRR12346  SRR12346  SRR12346  SRR12346  110;110 170 /absolute_path/6.fq1.gz /abs
 SRR12347  SRR12347  SRR12347  SRR12347  110;110 170 /absolute_path/7.fq1.gz /absolute_path/7.fq2.gz  
 ```
 (2) It should be noted that there are a file named "ref.list" in the same folder of main.pl. "ref.list" must contain all the ID of reference genomes used in the sequence alignment of step3 and step4 for both virus and human, or the user will get error or uncompleted results in *human_bk.final.stp2.uniq2.final during the procedure of deep removing PCR-duplications in step4. We have involved some predefined reference names in ref.list which should work for HBV and HPV integration detection in human genome, but the users should add the references names used in their own experiments. In the ref.list, each ID should be followed by an underline, for example "chr1_".
+
+(3) build index for reference genome for soap2
+### The executable program of soap2 is at soap folder, in which 2bwt-builder is used to build the soap2 index for the reference genome.
+  The commmand for running 2bwt-builder
+  ```
+  2bwt-builder ref.fa
+  ```
 
 (3) edit the Configure file for running soap2 
 
@@ -75,11 +82,10 @@ Users could edit the configure file manually from the example configure file. Al
 ```
 python /absolute_path/creat_config.py -soap /absolute_path/soap2 -virus /absolute_path/ref_virus_index -human /absolute_path/ref_human_index -o /absolute_path/Config_file
 ```
-### The executable program of soap2 is at soap folder, in which 2bwt-builder is used to build the soap2 index for the reference genome.
-  The commmand for running 2bwt-builder
-  ```
-  2bwt-builder ref.fa
-  ```
+(4) building reference genome index file for running bwa
+```
+bwa index ref.fa
+```
 
 ### stage 2: run HIVID2 in one single shell script (one-stop pipeline)
 ```
@@ -90,16 +96,7 @@ perl /absolute_path/all_in_one.pl -o /absolute_path/output_directory -tl /absolu
 sh sampleID_all_in_one.sh 
 ```
 Users could also submit the sampleID_all_in_one.sh to slurm, qsge or other task distribution system. 
-###Please note that the reference genomes of both human and virus should be indexed by both bwa and soap2 before running *_all_in_one.sh.
 
-bwa index command
-```
-bwa index ref.fa
-```
-soap2 index command
-```
-2bwt-builder ref.fa
-```
 **The parameters of all_in_one.pl**
                    
                     -o              <str>           absolute path of output directory
