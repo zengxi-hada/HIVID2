@@ -65,7 +65,7 @@ The executable program of soap2 is at "soap" folder, in which 2bwt-builder is us
   2bwt-builder ref.fa
   ```
 
-(3) edit the Configure file for running soap2 
+(3) create the Configure file for running soap2 
 
 This configure file difined the indexed referece genomes and alignment parameters used in soap alignment of step3. 
 
