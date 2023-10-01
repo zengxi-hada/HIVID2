@@ -59,7 +59,7 @@ SRR12347  SRR12347  SRR12347  SRR12347  110;110 170 /absolute_path/7.fq1.gz /abs
 (2) It should be noted that there are a file named "ref.list" in the same folder of main.pl. "ref.list" must contain all the ID of reference genomes used in the sequence alignment of step3 and step4 for both virus and human, or the user will get error or uncompleted results in *human_bk.final.stp2.uniq2.final during the procedure of deep removing PCR-duplications in step4. We have involved some predefined reference names in ref.list which should work for HBV and HPV integration detection in human genome, but the users should add the references names used in their own experiments. In the ref.list, each ID should be followed by an underline, for example "chr1_".
 
 (3) build index for reference genome for soap2
-### The executable program of soap2 is at soap folder, in which 2bwt-builder is used to build the soap2 index for the reference genome.
+The executable program of soap2 is at "soap" folder, in which 2bwt-builder is used to build the soap2 index for the reference genome.
   The commmand for running 2bwt-builder
   ```
   2bwt-builder ref.fa
