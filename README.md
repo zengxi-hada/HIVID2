@@ -58,7 +58,7 @@ SRR12347  SRR12347  SRR12347  SRR12347  110;110 170 /absolute_path/7.fq1.gz /abs
 ```
 (2) Create the "ref.list". Please note that there is an example "ref.list" in the same folder of main.pl. "ref.list" must contain all the ID of reference genomes used in the sequence alignment of step3 and step4 for both virus and human, or the user will get error or uncompleted results in *human_bk.final.stp2.uniq2.final during the procedure of deep removing PCR-duplications in step4. We have involved some predefined reference names in ref.list which should work for HBV and HPV integration detection in human genome, but the users should add the references names used in their own experiments. In the ref.list, each ID should be followed by an underline, for example "chr1_".
 
-(3) build index for reference genome for soap2
+(3) build index for reference genome for running soap2 for both host and virus genomes
 The executable program of soap2 is at "soap" folder, in which 2bwt-builder is used to build the soap2 index for the reference genome.
   The commmand for running 2bwt-builder
   ```
@@ -82,7 +82,7 @@ Users could edit the configure file manually from the example configure file. Al
 ```
 python /absolute_path/creat_config.py -soap /absolute_path/soap2 -virus /absolute_path/ref_virus_index -human /absolute_path/ref_human_index -o /absolute_path/Config_file
 ```
-(4) building reference genome index file for running bwa
+(4) building reference genome index file for running bwa for both host and virus genomes
 ```
 bwa index ref.fa
 ```
